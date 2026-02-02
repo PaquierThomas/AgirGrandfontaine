@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "dog_sliders",
+  "info": {
+    "singularName": "dog-slider",
+    "pluralName": "dog-sliders",
+    "displayName": "Carousel chien | Page accueil"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slider": {
+      "type": "component",
+      "component": "shared.slider",
+      "repeatable": true
+    }
+  }
+}

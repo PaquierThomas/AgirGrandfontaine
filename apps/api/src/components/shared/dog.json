@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_dogs",
+  "info": {
+    "displayName": "Dog"
+  },
+  "options": {},
+  "attributes": {
+    "chien": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::chien.chien"
+    }
+  },
+  "config": {}
+}

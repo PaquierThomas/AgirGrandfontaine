@@ -1,0 +1,40 @@
+/* @import url('function.css'); */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap");
+:root {
+  --primary-font: "Great Vibes", cursive;
+  --text-font: "Montserrat", sans-serif;
+
+  --small: 600px;
+  --medium: 760px;
+  --large: 960px;
+
+  /* Palette */
+
+  --color-primary: #394931;
+  --color-primary-rgb: 57, 73, 49;
+  --color-secondary: #a3b18a;
+
+  --color-cta: #394931;
+
+  --color-bg: #fff8ec;
+  --color-surface: #f9f4e4;
+  --color-text-active: rgb(255, 248, 236);
+
+  --color-text: rgb(255, 248, 236);
+
+  --border-radius: 25px;
+
+  --size-title: 64px;
+  --size-text: 16px;
+
+  /* Polices */
+  --police-tag: "Space Grotesk", sans-serif;
+  --font-primary: Georgia, "Times New Roman", serif;
+  --font-titre: Georgia, "Times New Roman", serif;
+  --font-text: "Space Grotesk", sans-serif;
+
+  /* Taille police */
+  --tag-size: 14px;
+  --button-size: 14px;
+}

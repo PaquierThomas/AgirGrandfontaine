@@ -1,0 +1,161 @@
+---
+// CSS
+import { css } from "@styled-system/css";
+import "../index.css";
+import Layout from "src/layouts/Layout.astro";
+import { HStack, VStack, Wrap, Box, Stack, Grid } from "@styled-system/jsx";
+import DogBandeauImage from "src/components/dog-details/dog-bandeau-image.astro";
+import "../styles/global.css";
+
+import MarathonLogo from "../assets/marathon_logo.svg";
+// Icons
+
+import ArticleCard from '../components/ArticleCard.astro';
+
+---
+<Layout>
+ <!-- <HStack className="article-card" justifyContent={"space-between"} alignItems={"start"}>
+  <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=60" alt="image" class="image" />
+  <VStack alignItems={"flex-start"} justifyContent={"space-between"} gap={8} className="content">
+    <HStack className="article-tags-list">
+      <span class="tags-date">Feb 18, 2025</span>
+      <span class="tags-category">Business</span>
+    </HStack>
+    <h2>Building a Strong Brand Identity</h2>
+    <p>Explore the essential elements of creating a memorable brand identity that resonates with your target audience and stands out in the market.</p>
+  </VStack>
+</HStack>
+<Grid columns={3} gap={20} w={"full"}>
+  <ArticleCard 
+    image="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=60"
+    date="Feb 22, 2025"
+    category="Social"
+    title="Creating Engaging Social Media Content"
+    description="Learn how to craft compelling social media content that captures attention and drives engagement. Our guide covers best practices and creative ideas."
+  />
+  
+  <ArticleCard 
+    image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=60"
+    date="Feb 20, 2025"
+    category="Marketing"
+    title="Data-Driven Marketing Strategies"
+    description="Discover how to leverage data analytics to optimize your marketing campaigns and achieve better ROI."
+  />
+  
+  
+  <ArticleCard 
+    image="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=60"
+    date="Feb 18, 2025"
+    category="Business"
+    title="Building a Strong Brand Identity"
+    description="Explore the essential elements of creating a memorable brand identity that resonates with your target audience."
+  />
+  <ArticleCard 
+    image="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=60"
+    date="Feb 20, 2025"
+    category="Marketing"
+    title="Data-Driven Marketing Strategies"
+    description="Discover how to leverage data analytics to optimize your marketing campaigns and achieve better ROI."
+  />
+  <ArticleCard 
+    image="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=60"
+    date="Feb 22, 2025"
+    category="Social"
+    title="Creating Engaging Social Media Content"
+    description="Learn how to craft compelling social media content that captures attention and drives engagement. Our guide covers best practices and creative ideas."
+  />
+  <ArticleCard 
+    image="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=60"
+    date="Feb 18, 2025"
+    category="Business"
+    title="Building a Strong Brand Identity"
+    description="Explore the essential elements of creating a memorable brand identity that resonates with your target audience."
+  />
+</Grid> -->
+
+
+<svg viewBox="18 18 24 24"
+     fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+  <path d="M29.9998 18C23.3748 18 17.9368 23.4882 18.0006 30.1079C18.0584 36.1223 22.5482 41.0774 28.3636 41.8699C28.4358 41.8795 28.4995 41.8232 28.4995 41.7506V34.4338C28.4995 34.3771 28.4596 34.3288 28.4044 34.3166C25.0285 33.5862 22.4999 30.5848 22.4993 26.9925C22.4993 22.8575 25.8885 19.4837 30.0268 19.4986C34.1561 19.5134 37.4991 22.8628 37.4991 26.9925C37.4991 30.5842 34.97 33.5856 31.5946 34.3166C31.5393 34.3288 31.4995 34.3771 31.4995 34.4338V41.7506C31.4995 41.8232 31.5638 41.8795 31.6354 41.8699C37.489 41.0726 41.9995 36.0581 41.9995 29.9907C42 23.3683 36.6274 18 29.9998 18Z"
+        fill="currentColor"/>
+</svg>
+
+
+</Layout>
+
+<style>
+  
+  svg {
+  width: 800px;
+  height: 800px;
+  color: #C0FE04;
+}    * {
+  box-sizing: border-box;
+}
+  .article-card {
+    border-radius: var(--border-radius);
+    margin: 175px 0;
+    max-width: 1400px;
+    width: 100%;
+    height: 550px;
+    gap: 100px;
+  }
+  
+  .article-card h2 {
+    font-weight: 600;
+    font-size: 64px;
+    font-family: 'Urbanist', sans-serif;
+    line-height: 1.1;
+  }
+  
+  .article-card p {
+    font-size: 18px;
+    font-family: var(--font-text);
+    text-align: justify;
+    padding-right: 25px;
+  }
+  
+  .image {
+    width: calc((100% - 100px) * 0.55); 
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    flex-shrink: 0;
+  }
+  
+  .content {
+    width: calc((100% - 100px) * 0.45); 
+    flex-shrink: 0;
+    margin-top: 100px;
+    padding-right: 25px;
+    box-sizing: border-box;
+  }
+  
+  .article-tags-list {
+    gap: 10px;
+  }
+  
+  .article-tags-list span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-text);
+    text-transform: capitalize;
+    border-radius: var(--border-radius);
+    padding: 0.25rem 0.65rem;
+  }
+  
+  .tags-date {
+    background: var(--color-secondary);
+    border: 1px solid var(--color-secondary);
+  }
+  
+  .tags-category {
+    background: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+  
+  body {
+    background: whitesmoke;
+  }
+</style>

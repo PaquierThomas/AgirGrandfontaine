@@ -1,0 +1,7 @@
+[build]
+  base = "apps/web"
+  command = "bun run build"
+  publish = "dist"
+
+[build.environment]
+  BUN_INSTALL = "true"

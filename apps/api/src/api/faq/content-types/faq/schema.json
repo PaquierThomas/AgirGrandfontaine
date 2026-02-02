@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "faqs",
+  "info": {
+    "singularName": "faq",
+    "pluralName": "faqs",
+    "displayName": "Foire aux questions"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "questions_list": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.question"
+      ]
+    }
+  }
+}

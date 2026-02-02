@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_shared_personal_informations",
+  "info": {
+    "displayName": "Personal_information"
+  },
+  "options": {},
+  "attributes": {
+    "Adress": {
+      "type": "string",
+      "default": "1015 Saulnier St, Houston, USA",
+      "required": true
+    },
+    "Adress2": {
+      "type": "string",
+      "default": "1015 Saulnier St, Houston, USA"
+    },
+    "Phone": {
+      "type": "string",
+      "default": "+1 (323) 113-2213",
+      "required": true
+    },
+    "Email": {
+      "type": "string",
+      "default": "hello@Labubu.com",
+      "required": true
+    }
+  },
+  "config": {}
+}

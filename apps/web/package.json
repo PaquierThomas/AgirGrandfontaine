@@ -1,0 +1,31 @@
+{
+  "name": "@agirgrandfontaine/web",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "prepare": "panda codegen",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/netlify": "^6.6.3",
+    "@astrojs/react": "^4.4.2",
+    "@pandacss/studio": "^1.8.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "strapi-plugin-populate-deep": "^3.0.1",
+    "strapi-v5-plugin-populate-deep": "^4.0.5",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.2",
+    "@pandacss/dev": "^1.8.1",
+    "prettier": "3.8.0",
+    "prettier-plugin-astro": "0.14.1"
+  }
+}

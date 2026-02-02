@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_paragraph_subtitles",
+  "info": {
+    "displayName": "Sous-titre + paragraphe"
+  },
+  "options": {},
+  "attributes": {
+    "subtitle": {
+      "type": "string"
+    },
+    "paragraph": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

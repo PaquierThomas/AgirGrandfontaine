@@ -1,0 +1,145 @@
+---
+import "../styles/global.css";
+import "../index.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Astro Basics",
+  description = "Votre description par défaut",
+  image = "/default-og-image.jpg",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+    <!-- Polices -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+  </head>
+  <body>
+    <!-- <Nav /> -->
+    <div class="content-wrapper">
+      <slot />
+    </div>
+    <!-- <Footer /> -->
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    overflow-x: hidden;
+  }
+
+  .content-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Pour les sections qui ont besoin d'un background pleine largeur */
+  .full-width-bg {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 0;
+  }
+
+  .full-width-bg > * {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Large Desktop */
+  @media (max-width: 1440px) {
+    .content-wrapper {
+      max-width: 1200px;
+      padding: 0 40px;
+    }
+    .full-width-bg > * {
+      max-width: 1200px;
+      padding: 0 40px;
+    }
+  }
+
+  /* Desktop */
+  @media (max-width: 1200px) {
+    .content-wrapper {
+      max-width: 1000px;
+      padding: 0 32px;
+    }
+    .full-width-bg > * {
+      max-width: 1000px;
+      padding: 0 32px;
+    }
+  }
+
+  /* Tablet Landscape */
+  @media (max-width: 1024px) {
+    .content-wrapper {
+      max-width: 100%;
+      padding: 0 28px;
+    }
+    .full-width-bg > * {
+      max-width: 100%;
+      padding: 0 28px;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    .content-wrapper {
+      padding: 0 24px;
+    }
+    .full-width-bg > * {
+      padding: 0 24px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .content-wrapper {
+      padding: 0 16px;
+    }
+    .full-width-bg > * {
+      padding: 0 16px;
+    }
+  }
+
+  /* Small Mobile */
+  @media (max-width: 375px) {
+    .content-wrapper {
+      padding: 0 12px;
+    }
+    .full-width-bg > * {
+      padding: 0 12px;
+    }
+  }
+</style>

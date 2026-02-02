@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_days",
+  "info": {
+    "displayName": "Day"
+  },
+  "options": {},
+  "attributes": {
+    "day": {
+      "type": "string"
+    },
+    "hour": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

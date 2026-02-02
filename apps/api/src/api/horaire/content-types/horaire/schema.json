@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "horaires",
+  "info": {
+    "singularName": "horaire",
+    "pluralName": "horaires",
+    "displayName": "Horaire de contact | Footer(Bas de page)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Horaires",
+      "required": true
+    },
+    "timetable": {
+      "type": "dynamiczone",
+      "components": [
+        "shared.day"
+      ]
+    }
+  }
+}

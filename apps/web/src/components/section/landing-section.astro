@@ -1,0 +1,144 @@
+---
+
+---
+
+<section class="approach-section">
+  <div class="image-container">
+    <div class="image-wrapper">
+      <img
+        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1200&h=800&fit=crop"
+        alt="Notre approche"
+      />
+    </div>
+  </div>
+  <div class="content-container">
+    <div class="label">Our Approach</div>
+    <h2>Our unique approach is what sets us apart.</h2>
+    <p class="description">
+      Our approach marries traditional craftsmanship with contemporary flair, making every creation
+      distinctly unique. Personalization and sustainability are at the heart of what we do, ensuring
+      each project not only captivates but truly resonates.
+    </p>
+    <a href="#" class="cta-button">
+      Approach Page <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<section class="approach-section reverse">
+  <div class="image-container">
+    <div class="image-wrapper">
+      <img
+        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&h=800&fit=crop"
+        alt="Notre vision"
+      />
+    </div>
+  </div>
+  <div class="content-container">
+    <div class="label">Our Vision</div>
+    <h2>Creating timeless moments that last forever.</h2>
+    <p class="description">
+      We believe in the power of authentic storytelling and genuine connections. Each project is
+      crafted with meticulous attention to detail, ensuring that every element speaks to the heart
+      of your brand.
+    </p>
+    <a href="#" class="cta-button">
+      Learn More <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<style scoped>
+  .approach-section {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 120px;
+    /* padding: 80px 60px; */
+  }
+
+  /* Classe pour inverser l'ordre - image à droite */
+  .approach-section.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .image-container {
+    flex: 0 0 45vw; /* largeur fixe entre 40vw et 50vw */
+    max-width: 50vw;
+    min-width: 40vw;
+  }
+
+  .image-wrapper {
+    position: relative;
+    border-radius: 0 200px 200px 0;
+    overflow: hidden;
+    background-color: #6b7870;
+
+    width: 100%;
+    height: 50vh;
+    max-height: 50vh;
+  }
+
+  .reverse .image-wrapper {
+    border-radius: 200px 0 0 200px;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .content-container {
+    flex: 1;
+    min-width: 0;
+    max-width: 600px;
+    padding: 0 40px;
+  }
+
+  .label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 32px;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+  }
+
+  .description {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #4a4a4a;
+    margin-bottom: 40px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 14px 40px 16px;
+    background-color: #1a1a1a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 32px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background-color: #333;
+  }
+
+  .arrow {
+    margin-left: 8px;
+    font-size: 12px;
+  }
+</style>

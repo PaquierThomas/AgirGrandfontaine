@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_questions",
+  "info": {
+    "displayName": "question"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::question.question"
+    }
+  },
+  "config": {}
+}

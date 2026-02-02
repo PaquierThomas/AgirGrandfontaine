@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Accueil"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titre": {
+      "type": "string",
+      "default": "Accueillez un Lévrier Afghan chez vous",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras rutrum, nibh vitae faucibus consectetur, dolor dui porttitor lorem, eu mattis nisi justo vel neque. Suspendisse vestibulum enim quam, non rutrum sem feugiat vel. Quisque enim nisl, porttitor eu diam sit amet, tristique elementum sapien. Morbi ultricies massa vel tortor pharetra, in dictum ",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "personal_informations",
+  "info": {
+    "singularName": "personal-information",
+    "pluralName": "personal-informations",
+    "displayName": "Informations personnelles"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "phone": {
+      "type": "string",
+      "default": "+1 (323) 113-2213",
+      "required": true
+    },
+    "adress": {
+      "type": "string",
+      "default": "1015 Saulnier St, Houston, USA",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "default": "hello@Labubu.com",
+      "required": true
+    },
+    "adress2": {
+      "type": "string"
+    }
+  }
+}

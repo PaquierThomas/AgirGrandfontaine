@@ -1,0 +1,74 @@
+---
+import { VStack, HStack } from '../../styled-system/jsx';
+
+interface Props {
+  image: string;
+  date: string;
+  category: string;
+  title: string;
+  description: string;
+}
+
+const { image, date, category, title, description } = Astro.props;
+---
+
+<VStack className="article-card" alignItems={"flex-start"} gap={8}>
+  <img src={image} alt={title} class="image" />
+  <VStack alignItems={"flex-start"} gap={4}>
+    <HStack className="article-tags-list">
+      <span class="tags-date">{date}</span>
+      <span class="tags-category">{category}</span>
+    </HStack>
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </VStack>
+</VStack>
+
+<style>
+  .article-card {
+    max-width: 400px;
+    border-radius: var(--border-radius);
+  }
+  
+  .article-card h2 {
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Urbanist', sans-serif;
+  }
+  
+  .article-card p {
+    font-size: 14px;
+    font-family: var(--font-text);
+    text-justify: distribute;
+  }
+  
+  .image {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+  }
+  
+  .article-tags-list {
+    gap: 10px;
+  }
+  
+  .article-tags-list span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-text);
+    text-transform: capitalize;
+    border-radius: var(--border-radius);
+    padding: 0.25rem 0.65rem;
+  }
+  
+  .tags-date {
+    background: var(--color-secondary);
+    border: 1px solid var(--color-secondary);
+  }
+  
+  .tags-category {
+    background: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+</style>

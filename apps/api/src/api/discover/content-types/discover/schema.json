@@ -1,0 +1,43 @@
+{
+  "kind": "singleType",
+  "collectionName": "discovers",
+  "info": {
+    "singularName": "discover",
+    "pluralName": "discovers",
+    "displayName": "Découvrir la race | Page accueil"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "certified": {
+      "type": "string"
+    },
+    "check_up": {
+      "type": "string"
+    },
+    "support": {
+      "type": "string"
+    },
+    "report": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}
