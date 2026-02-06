@@ -10,28 +10,22 @@
   --large: 960px;
 
   /* Palette */
-  --bg: #fff8ec;
+  --bg: #fef9f3;
   /* --bg: #e5d7c4; */
   --surface: #f9f1e4;
   --moss: #889063;
   --cta: #354024;
 
-  --text-light: #4c3d19;
-  --text-bg: #fff8ec;
-
-  --primary: #394931;
-  --primary-rgb: 57, 73, 49;
-  --color-text-active: rgb(255, 248, 236);
-
-  --color-primary: #394931;
-  --color-primary-rgb: 57, 73, 49;
-
-  --color-cta: #394931;
-
-  --color-bg: #fff8ec;
-  --color-surface: #f9f4e4;
-
-  --background-surface: #f9f4e4;
+  --text-bg: #fef9f3;
+  --primary: #2c5282;
+  --primary-rgb: 44, 82, 130;
+  --color-text-active: rgb(254, 249, 243);
+  --color-primary: #2c5282;
+  --color-primary-rgb: 44, 82, 130;
+  --color-cta: #3b82f6;
+  --color-bg: #fef9f3;
+  --color-surface: #f7f5f2;
+  --background-surface: #f7f5f2;
 
   --size-title: 48px;
   --size-title-section: 36px; /* Titres de sections */

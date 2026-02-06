@@ -1,6 +1,5 @@
 ---
 import { HStack, Box } from "@styled-system/jsx";
-import Button from "src/components/shared/button.astro";
 import Logo from "./logo.astro";
 ---
 
@@ -18,31 +17,22 @@ import Logo from "./logo.astro";
         <span></span>
       </button>
 
-      <!-- Navigation Desktop -->
+      <!-- Navigation Desktop - centrée -->
       <nav class="header-nav">
-        <HStack gap={10} className="header-nav-div">
-          <a href="/">Accueil</a>
-          <a href="/blog">Blog</a>
-          <a href="/contact">Contact</a>
-        </HStack>
+        <a href="/">Accueil</a>
+        <a href="/blog">Actualités</a>
+        <a href="/contact">Contact</a>
       </nav>
 
-      <!-- CTA Desktop
-      <Box className="header-cta">
-        <Button variant="filled" href="/adopter">Adopter</Button>
-      </Box> -->
+      <!-- Espace vide pour équilibrer (même largeur que le logo) -->
+      <div class="header-spacer"></div>
     </HStack>
 
     <!-- Menu mobile -->
     <nav class="mobile-nav" id="mobile-menu">
       <a href="/">Accueil</a>
-      <div class="mobile-dropdown">
-        
-        
-      </div>
-      <a href="/blog">Blog</a>
+      <a href="/blog">Actualités</a>
       <a href="/contact">Contact</a>
-      
     </nav>
   </Box>
 </header>
@@ -92,7 +82,7 @@ import Logo from "./logo.astro";
         document.body.classList.toggle("menu-open");
       });
 
-      // Fermer le menu en cliquant sur un lien (sauf pour le dropdown)
+      // Fermer le menu en cliquant sur un lien
       const mobileLinks = mobileMenu.querySelectorAll("a");
       mobileLinks.forEach((link) => {
         link.addEventListener("click", () => {
@@ -100,18 +90,6 @@ import Logo from "./logo.astro";
           mobileMenu.classList.remove("active");
           document.body.classList.remove("menu-open");
         });
-      });
-    }
-
-    // Gestion du dropdown mobile
-    const mobileDropdownBtn = document.getElementById("mobile-levriers-btn");
-    const mobileDropdownContent = document.getElementById("mobile-levriers-content");
-
-    if (mobileDropdownBtn && mobileDropdownContent) {
-      mobileDropdownBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        mobileDropdownBtn.classList.toggle("active");
-        mobileDropdownContent.classList.toggle("active");
       });
     }
   }
@@ -132,7 +110,7 @@ import Logo from "./logo.astro";
     background: color-mix(
       in srgb,
       var(--background-surface),
-      black 4%
+      black 1%
     );
     padding: 20px 0;
     width: 100%;
@@ -144,9 +122,6 @@ import Logo from "./logo.astro";
       box-shadow 0.3s ease;
     z-index: 1000;
   }
-  .header-nav-div {
-    gap: 50px;
-  }
 
   .header--hidden {
     transform: translateY(-100%) !important;
@@ -155,7 +130,7 @@ import Logo from "./logo.astro";
   .header-container {
     margin: 0 auto;
     max-width: 1400px;
-    padding: 0 20px;
+    padding: 0 40px;
   }
 
   .header-content {
@@ -168,6 +143,11 @@ import Logo from "./logo.astro";
     text-decoration: none;
     width: 96px;
     z-index: 1001;
+  }
+
+  /* Spacer pour équilibrer la mise en page */
+  .header-spacer {
+    width: 96px;
   }
 
   /* Bouton burger - caché par défaut */
@@ -204,14 +184,17 @@ import Logo from "./logo.astro";
     transform: translateY(-9.5px) rotate(-45deg);
   }
 
-  /* Navigation Desktop */
+  /* Navigation Desktop - centrée */
   .header-nav {
-    flex: 1;
     display: flex;
-    justify-content: center;
+    gap: 48px;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .header-nav a, .dropdown-trigger {
+  .header-nav a {
     font-size: 16px;
     font-weight: 500;
     color: var(--color-primary);
@@ -219,13 +202,14 @@ import Logo from "./logo.astro";
     font-family: var(--font-text);
     transition: opacity 0.3s ease;
     position: relative;
+    white-space: nowrap;
   }
 
-  .header-nav a:hover, .dropdown-trigger:hover {
+  .header-nav a:hover {
     opacity: 0.7;
   }
 
-  .header-nav a::after, .dropdown-trigger::after {
+  .header-nav a::after {
     content: "";
     position: absolute;
     bottom: -5px;
@@ -240,78 +224,11 @@ import Logo from "./logo.astro";
     width: 100%;
   }
 
-  /* Menu déroulant Desktop */
-  .nav-dropdown {
-    position: relative;
-  }
-
-  .dropdown-trigger {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-  }
-
-  .dropdown-trigger svg {
-    transition: transform 0.3s ease;
-  }
-
-  .nav-dropdown:hover .dropdown-trigger svg {
-    transform: rotate(180deg);
-  }
-
-  .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 10px;
-    background: var(--background-surface);
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    padding: 8px 0;
-    min-width: 200px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1002;
-  }
-
-  .nav-dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    margin-top: 15px;
-  }
-
-  .dropdown-menu a {
-    display: block;
-    padding: 12px 20px;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--color-primary);
-    text-decoration: none;
-    font-family: var(--font-text);
-    transition: background 0.2s ease;
-  }
-
-  .dropdown-menu a:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  .dropdown-menu a::after {
-    display: none;
-  }
-
-  .header-cta {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   /* Menu mobile - caché par défaut */
   .mobile-nav {
     display: none;
     flex-direction: column;
-    gap: 24px;
+    gap: 0;
     position: fixed;
     top: 0;
     right: -100%;
@@ -334,68 +251,17 @@ import Logo from "./logo.astro";
     color: var(--color-primary);
     text-decoration: none;
     font-family: var(--font-text);
-    padding: 12px 0;
+    padding: 16px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     transition: opacity 0.3s ease;
   }
 
+  .mobile-nav a:last-child {
+    border-bottom: none;
+  }
+
   .mobile-nav a:hover {
     opacity: 0.7;
-  }
-
-  .mobile-cta {
-    margin-top: 20px;
-  }
-
-  /* Menu déroulant Mobile */
-  .mobile-dropdown {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .mobile-dropdown-trigger {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--color-primary);
-    font-family: var(--font-text);
-    padding: 12px 0;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-  }
-
-  .mobile-dropdown-trigger svg {
-    transition: transform 0.3s ease;
-  }
-
-  .mobile-dropdown-trigger.active svg {
-    transform: rotate(180deg);
-  }
-
-  .mobile-dropdown-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .mobile-dropdown-content.active {
-    max-height: 200px;
-  }
-
-  .mobile-dropdown-content a {
-    display: block;
-    padding: 10px 0 10px 20px;
-    font-size: 16px;
-    border-bottom: none;
-    opacity: 0.8;
-  }
-
-  .mobile-dropdown-content a:hover {
-    opacity: 1;
   }
 
   /* Empêcher le scroll quand le menu est ouvert */
@@ -405,12 +271,16 @@ import Logo from "./logo.astro";
 
   /* Responsive - Tablette */
   @media (max-width: 1024px) {
-    .header-nav a {
-      font-size: 15px;
+    .header-container {
+      padding: 0 32px;
     }
 
     .header-nav {
-      gap: 8px;
+      gap: 36px;
+    }
+
+    .header-nav a {
+      font-size: 15px;
     }
   }
 
@@ -420,12 +290,16 @@ import Logo from "./logo.astro";
       padding: 16px 0;
     }
 
+    .header-container {
+      padding: 0 24px;
+    }
+
     .burger-menu {
       display: flex;
     }
 
     .header-nav,
-    .header-cta {
+    .header-spacer {
       display: none;
     }
 
@@ -440,7 +314,7 @@ import Logo from "./logo.astro";
 
   @media (max-width: 480px) {
     .header-container {
-      padding: 0 16px;
+      padding: 0 20px;
     }
 
     .mobile-nav {

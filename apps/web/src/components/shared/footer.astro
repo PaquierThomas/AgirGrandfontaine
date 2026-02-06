@@ -2,41 +2,36 @@
 import { HStack, VStack, Box } from "@styled-system/jsx";
 import fetchApi from "../../lib/strapi";
 import Logo from "./logo.astro";
-
-
 ---
 
 <footer class="footer">
   <div class="footer-container">
-    <!-- Logo -->
-    <div class="footer-logo">
-      <Logo />
+    <!-- Logo centré -->
+    <div class="footer-logo-wrapper">
+      <Logo class="footer-logo" />
     </div>
 
-    <!-- Content Grid -->
-    <div class="footer-content">
-      <VStack gap={8} alignItems="flex-start" className="footer-column">
-        <h4 class="footer-title">Menu</h4>
-        <nav class="footer-nav">
-          <a href="/">Accueil</a>
-          <a href="/chiots">Chiots</a>
-          <a href="/reproducteurs">Reproducteurs</a>
-          <a href="/blog">Blog</a>
-          <a href="/contact">Contact</a>
-        </nav>
-      </VStack>
+    <!-- Navigation centrée -->
+    <nav class="footer-nav">
+      <a href="/">Accueil</a>
+      <span class="separator">•</span>
+      <a href="/blog">Actualités</a>
+      <span class="separator">•</span>
+      <a href="/contact">Contact</a>
+    </nav>
 
-      <VStack gap={8} alignItems="flex-start" className="footer-column">
-        <h4 class="footer-title">Nous suivre</h4>
-        <nav class="footer-nav">
-          <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
-        </nav>
-      </VStack>
+    <!-- Social -->
+    <div class="footer-social">
+      <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
 
     <!-- Copyright -->
     <div class="footer-copyright">
-      <p>© 2025, All Rights Reserved</p>
+      <p>© 2025 · Tous droits réservés</p>
     </div>
   </div>
 </footer>
@@ -44,7 +39,7 @@ import Logo from "./logo.astro";
 <style>
   .footer {
     background: var(--color-primary);
-    padding: 80px 0 60px;
+    padding: 64px 0 48px;
     width: 100vw;
     position: relative;
     left: 50%;
@@ -61,115 +56,128 @@ import Logo from "./logo.astro";
     width: 100%;
     max-width: 1400px;
     padding: 0 40px;
-    gap: 100px;
+    gap: 40px;
   }
 
   /* Logo */
+  .footer-logo-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
   .footer-logo {
     filter: brightness(0) invert(1);
-    width: 60px;
-    height: 60px;
-    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    transition: transform 0.3s ease;
   }
 
-  /* Content - Grid layout pour desktop */
-  .footer-content {
-    width: 100%;
-    display: flex;
-    gap: 60px;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+  .footer-logo:hover {
+    transform: scale(1.05);
   }
 
-  .footer-column {
-    min-width: 250px;
-  }
-
-  /* Titres des colonnes */
-  .footer-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-bg);
-    opacity: 0.6;
-    line-height: 1.2;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-family: var(--font-text);
-  }
-
-  /* Navigation links */
+  /* Navigation horizontale */
   .footer-nav {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .footer-nav a,
-  .schedule-item {
-    font-size: 18px;
+  .footer-nav a {
+    font-size: 16px;
     font-weight: 500;
-    line-height: 1.4;
     color: var(--text-bg);
     text-decoration: none;
     font-family: var(--font-text);
     transition: opacity 0.3s ease;
+    position: relative;
   }
 
   .footer-nav a:hover {
     opacity: 0.7;
   }
 
-  /* Schedule styling */
-  .schedule-item {
+  .footer-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--text-bg);
+    transition: width 0.3s ease;
+  }
+
+  .footer-nav a:hover::after {
+    width: 100%;
+  }
+
+  .separator {
+    color: var(--text-bg);
+    opacity: 0.4;
+    font-size: 14px;
+    user-select: none;
+  }
+
+  /* Social */
+  .footer-social {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    gap: 16px;
+    align-items: center;
   }
 
-  .schedule-item .day {
-    font-weight: 600;
-    font-size: 16px;
+  .footer-social a {
+    color: var(--text-bg);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
   }
 
-  .schedule-item .hour {
-    font-weight: 400;
-    font-size: 16px;
-    opacity: 0.9;
+  .footer-social a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
   }
 
   /* Copyright */
   .footer-copyright {
     text-align: center;
     width: 100%;
-    padding-top: 40px;
+    padding-top: 32px;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .footer-copyright p {
     font-size: 14px;
     color: var(--text-bg);
-    opacity: 0.7;
+    opacity: 0.6;
     font-family: var(--font-text);
+    letter-spacing: 0.5px;
   }
 
   /* Tablets (1024px et moins) */
   @media (max-width: 1024px) {
     .footer {
-      padding: 60px 0 50px;
+      padding: 56px 0 44px;
     }
 
     .footer-container {
       padding: 0 32px;
-      gap: 56px;
+      gap: 36px;
     }
 
-    .footer-content {
-      gap: 48px;
+    .footer-nav {
+      gap: 18px;
     }
 
-    .footer-nav a,
-    .schedule-item {
-      font-size: 17px;
+    .footer-nav a {
+      font-size: 15px;
     }
   }
 
@@ -181,32 +189,28 @@ import Logo from "./logo.astro";
 
     .footer-container {
       padding: 0 24px;
-      gap: 48px;
-    }
-
-    /* Passe en 2 colonnes */
-    .footer-content {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px 32px;
-    }
-
-    /* La colonne horaires prend toute la largeur */
-    .footer-column:last-child {
-      grid-column: 1 / -1;
+      gap: 32px;
     }
 
     .footer-logo {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
     }
 
-    .footer-nav a,
-    .schedule-item {
-      font-size: 16px;
+    .footer-nav {
+      gap: 16px;
+    }
+
+    .footer-nav a {
+      font-size: 14px;
+    }
+
+    .separator {
+      font-size: 12px;
     }
 
     .footer-copyright {
-      padding-top: 32px;
+      padding-top: 28px;
     }
   }
 
@@ -218,40 +222,26 @@ import Logo from "./logo.astro";
 
     .footer-container {
       padding: 0 20px;
-      gap: 40px;
+      gap: 28px;
     }
 
-    /* Une seule colonne sur mobile */
-    .footer-content {
-      grid-template-columns: 1fr;
-      gap: 36px;
-      text-align: center;
-    }
-
-    .footer-column,
-    .footer-column > * {
-      align-items: center !important;
-    }
-
+    /* Navigation verticale sur mobile */
     .footer-nav {
-      align-items: center;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .schedule-item {
-      align-items: center;
+    .separator {
+      display: none;
     }
 
-    .footer-title {
-      font-size: 13px;
-    }
-
-    .footer-nav a,
-    .schedule-item {
+    .footer-nav a {
       font-size: 15px;
     }
 
-    .footer-copyright {
-      padding-top: 28px;
+    .footer-social a {
+      width: 36px;
+      height: 36px;
     }
 
     .footer-copyright p {
@@ -262,30 +252,24 @@ import Logo from "./logo.astro";
   /* Small mobile (480px et moins) */
   @media (max-width: 480px) {
     .footer {
-      padding: 32px 0 24px;
+      padding: 36px 0 28px;
     }
 
     .footer-container {
-      gap: 32px;
-    }
-
-    .footer-content {
-      gap: 32px;
+      gap: 24px;
     }
 
     .footer-logo {
-      width: 45px;
-      height: 45px;
+      width: 44px;
+      height: 44px;
     }
 
-    .footer-nav a,
-    .schedule-item {
+    .footer-nav a {
       font-size: 14px;
     }
 
-    .schedule-item .day,
-    .schedule-item .hour {
-      font-size: 14px;
+    .footer-copyright {
+      padding-top: 24px;
     }
   }
 </style>
