@@ -1,0 +1,49 @@
+---
+import { HStack } from "@styled-system/jsx";
+import ContactContent from "src/components/contact/contact-content.astro";
+import ContactImage from "src/components/contact/contact-image.astro";
+---
+<HStack 
+  className="section" 
+  gap={"80px"}
+  alignItems={"stretch"}
+  justifyContent={"space-between"}
+  flexWrap={"wrap"}
+>
+  <ContactContent />
+  <ContactImage />
+</HStack>
+<style>
+  .section {
+    padding: 240px 0;
+    min-height: 800px;
+    width: 100%;
+  }
+  
+  /* Tablets */
+  @media (max-width: 1024px) {
+    .section {
+      padding: 160px 0;
+      gap: 60px !important;
+      min-height: 600px;
+    }
+  }
+  
+  /* Mobile devices */
+  @media (max-width: 768px) {
+    .section {
+      padding: 80px 0;
+      gap: 48px !important;
+      min-height: auto;
+      flex-direction: column !important;
+    }
+  }
+  
+  /* Small mobile */
+  @media (max-width: 480px) {
+    .section {
+      padding: 60px 0;
+      gap: 40px !important;
+    }
+  }
+</style>

@@ -1,6 +1,8 @@
 ---
 import "../styles/global.css";
 import "../index.css";
+import Nav from "src/components/shared/nav.astro";
+import Footer from "src/components/shared/footer.astro";
 
 interface Props {
   title?: string;
@@ -25,22 +27,17 @@ const {
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
     />
-    <!-- Polices -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-
   </head>
   <body>
-    <!-- <Nav /> -->
+    <Nav />
     <div class="content-wrapper">
       <slot />
     </div>
-    <!-- <Footer /> -->
+    <Footer />
   </body>
 </html>
 

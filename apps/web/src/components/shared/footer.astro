@@ -1,0 +1,293 @@
+---
+import { HStack, VStack, Box } from "@styled-system/jsx";
+import fetchApi from "../../lib/strapi";
+import Logo from "./logo.astro";
+
+
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Logo -->
+    <div class="footer-logo">
+      <Logo />
+    </div>
+
+    <!-- Content Grid -->
+    <div class="footer-content">
+      <VStack gap={8} alignItems="flex-start" className="footer-column">
+        <h4 class="footer-title">Menu</h4>
+        <nav class="footer-nav">
+          <a href="/">Accueil</a>
+          <a href="/chiots">Chiots</a>
+          <a href="/reproducteurs">Reproducteurs</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </VStack>
+
+      <VStack gap={8} alignItems="flex-start" className="footer-column">
+        <h4 class="footer-title">Nous suivre</h4>
+        <nav class="footer-nav">
+          <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        </nav>
+      </VStack>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-copyright">
+      <p>© 2025, All Rights Reserved</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-primary);
+    padding: 80px 0 60px;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .footer-container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 40px;
+    gap: 100px;
+  }
+
+  /* Logo */
+  .footer-logo {
+    filter: brightness(0) invert(1);
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  /* Content - Grid layout pour desktop */
+  .footer-content {
+    width: 100%;
+    display: flex;
+    gap: 60px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .footer-column {
+    min-width: 250px;
+  }
+
+  /* Titres des colonnes */
+  .footer-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-bg);
+    opacity: 0.6;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: var(--font-text);
+  }
+
+  /* Navigation links */
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-nav a,
+  .schedule-item {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-bg);
+    text-decoration: none;
+    font-family: var(--font-text);
+    transition: opacity 0.3s ease;
+  }
+
+  .footer-nav a:hover {
+    opacity: 0.7;
+  }
+
+  /* Schedule styling */
+  .schedule-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .schedule-item .day {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .schedule-item .hour {
+    font-weight: 400;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  /* Copyright */
+  .footer-copyright {
+    text-align: center;
+    width: 100%;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .footer-copyright p {
+    font-size: 14px;
+    color: var(--text-bg);
+    opacity: 0.7;
+    font-family: var(--font-text);
+  }
+
+  /* Tablets (1024px et moins) */
+  @media (max-width: 1024px) {
+    .footer {
+      padding: 60px 0 50px;
+    }
+
+    .footer-container {
+      padding: 0 32px;
+      gap: 56px;
+    }
+
+    .footer-content {
+      gap: 48px;
+    }
+
+    .footer-nav a,
+    .schedule-item {
+      font-size: 17px;
+    }
+  }
+
+  /* Tablets small (768px et moins) */
+  @media (max-width: 768px) {
+    .footer {
+      padding: 48px 0 40px;
+    }
+
+    .footer-container {
+      padding: 0 24px;
+      gap: 48px;
+    }
+
+    /* Passe en 2 colonnes */
+    .footer-content {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 32px;
+    }
+
+    /* La colonne horaires prend toute la largeur */
+    .footer-column:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .footer-logo {
+      width: 50px;
+      height: 50px;
+    }
+
+    .footer-nav a,
+    .schedule-item {
+      font-size: 16px;
+    }
+
+    .footer-copyright {
+      padding-top: 32px;
+    }
+  }
+
+  /* Mobile (640px et moins) */
+  @media (max-width: 640px) {
+    .footer {
+      padding: 40px 0 32px;
+    }
+
+    .footer-container {
+      padding: 0 20px;
+      gap: 40px;
+    }
+
+    /* Une seule colonne sur mobile */
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      text-align: center;
+    }
+
+    .footer-column,
+    .footer-column > * {
+      align-items: center !important;
+    }
+
+    .footer-nav {
+      align-items: center;
+    }
+
+    .schedule-item {
+      align-items: center;
+    }
+
+    .footer-title {
+      font-size: 13px;
+    }
+
+    .footer-nav a,
+    .schedule-item {
+      font-size: 15px;
+    }
+
+    .footer-copyright {
+      padding-top: 28px;
+    }
+
+    .footer-copyright p {
+      font-size: 13px;
+    }
+  }
+
+  /* Small mobile (480px et moins) */
+  @media (max-width: 480px) {
+    .footer {
+      padding: 32px 0 24px;
+    }
+
+    .footer-container {
+      gap: 32px;
+    }
+
+    .footer-content {
+      gap: 32px;
+    }
+
+    .footer-logo {
+      width: 45px;
+      height: 45px;
+    }
+
+    .footer-nav a,
+    .schedule-item {
+      font-size: 14px;
+    }
+
+    .schedule-item .day,
+    .schedule-item .hour {
+      font-size: 14px;
+    }
+  }
+</style>

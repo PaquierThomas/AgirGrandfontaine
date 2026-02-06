@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "actualites",
+  "info": {
+    "singularName": "actualite",
+    "pluralName": "actualites",
+    "displayName": "Actualités"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "link": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    }
+  }
+}

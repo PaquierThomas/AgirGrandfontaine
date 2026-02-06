@@ -10,23 +10,35 @@
   --large: 960px;
 
   /* Palette */
+  --bg: #fff8ec;
+  /* --bg: #e5d7c4; */
+  --surface: #f9f1e4;
+  --moss: #889063;
+  --cta: #354024;
+
+  --text-light: #4c3d19;
+  --text-bg: #fff8ec;
+
+  --primary: #394931;
+  --primary-rgb: 57, 73, 49;
+  --color-text-active: rgb(255, 248, 236);
 
   --color-primary: #394931;
   --color-primary-rgb: 57, 73, 49;
-  --color-secondary: #a3b18a;
 
   --color-cta: #394931;
 
   --color-bg: #fff8ec;
   --color-surface: #f9f4e4;
-  --color-text-active: rgb(255, 248, 236);
 
-  --color-text: rgb(255, 248, 236);
+  --background-surface: #f9f4e4;
 
-  --border-radius: 25px;
-
-  --size-title: 64px;
+  --size-title: 48px;
+  --size-title-section: 36px; /* Titres de sections */
+  --size-subtitle: 28px; /* Sous-titres */
   --size-text: 16px;
+  --size-text-secondary: 14px;
+  --size-citation-intro: 18px;
 
   /* Polices */
   --police-tag: "Space Grotesk", sans-serif;

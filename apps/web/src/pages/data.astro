@@ -6,24 +6,21 @@ import "../index.css";
 import Layout from "src/layouts/Layout.astro";
 import HomepageBlogSnippet from "src/components/homepage/homepage-blog-snippet.astro";
 import HomepageNews from "src/components/homepage/Homepage-News.astro";
+import type actualities from "src/interfaces/views/actualities-section";
 
-const vedettes = await fetchApi<Dog[]>({
-  endpoint: "tests",
+const actualitiesData = await fetchApi<actualities>({
+  endpoint: "actualites-page-accueil",
   wrappedByKey: "data",
   query: {
     populate: "all",
   },
 });
 
-console.log("Vedettes data:", JSON.stringify(vedettes, null, 2));
+console.log("Actualities data:", JSON.stringify(actualitiesData, null, 2));
 ---
 
-<!-- <pre>{JSON.stringify(vedettes, null, 2)}</pre> -->
-<Layout title="Page d'accueil">
-  <HomepageHero />
-  <HomepageNews/>
-  <HomepageBlogSnippet />
-</Layout>
+<pre>{JSON.stringify(actualitiesData, null, 2)}</pre>
+
 
 
 

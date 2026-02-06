@@ -1,0 +1,257 @@
+---
+interface Props {
+  variant?:
+    | "primary"
+    | "secondary"
+    | "ghost"
+    | "snippetBlog"
+    | "snippetDog"
+    | "newsletter"
+    | "border"
+    | "filled";
+  size?: "default" | "wide" | "extraWide" | "compact";
+  fullWidth?: boolean;
+  href?: string;
+  target?: "_blank" | "_self" | "_parent" | "_top";
+  class?: string;
+}
+
+const {
+  variant = "primary",
+  size = "default",
+  fullWidth = false,
+  href,
+  target,
+  class: className = "",
+} = Astro.props;
+
+const variantClasses = {
+  primary: "btn-primary",
+  secondary: "btn-secondary",
+  snippetBlog: "btn-cta-blog",
+  snippetDog: "btn-cta-dog",
+  ghost: "btn-ghost",
+  newsletter: "btn-cta-newsletter",
+  border: "btn-border",
+  filled: "btn-filled",
+};
+
+const sizeClasses = {
+  default: "btn-default",
+  wide: "btn-wide",
+  extraWide: "btn-extra-wide",
+  compact: "btn-compact",
+};
+
+const classes = [
+  "btn-base",
+  variantClasses[variant],
+  sizeClasses[size],
+  fullWidth ? "btn-full" : "",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<a href={href} target={target} rel={target === "_blank" ? "noopener noreferrer" : undefined} class={classes}>
+  <slot />
+</a>
+
+<style>
+  .btn-base {
+    font-size: var(--button-size);
+    color: var(--text-bg);
+    border-radius: 32px;
+
+    background: var(--cta);
+    font-family: var(--police-tag);
+    font-weight: 500;
+    border: 1px solid var(--cta);
+    cursor: pointer;
+    transition:
+      background 0.3s,
+      color 0.3s;
+    display: inline-block;
+  }
+
+  .btn-base:hover {
+    background: var(--text-bg);
+    color: var(--cta);
+  }
+
+  /* ============================================= */
+  /* DEFAULT - Taille par défaut */
+  /* ============================================= */
+  .btn-default {
+    padding: 14px 20px 16px;
+  }
+
+  /* ============================================= */
+  /* WIDE - Bouton allongé */
+  /* ============================================= */
+  .btn-wide {
+    padding: 14px 40px 16px;
+  }
+
+  /* ============================================= */
+  /* CTA-Blog - Bouton du snippet blog accueil */
+  /* ============================================= */
+  .btn-cta-blog {
+    padding: 20px 28px 22px;
+    border: 1px solid var(--primary);
+    color: var(--color-primary);
+    background-color: rgba(var(--primary-rgb), 0);
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-cta-blog:hover {
+    background-color: rgba(var(--primary-rgb), 1);
+    color: var(--color-text-active);
+  }
+
+  /* ============================================= */
+  /* CTA-Dog - Bouton du snippet présentation chien accueil */
+  /* ============================================= */
+  .btn-cta-dog {
+    padding: 16px 40px 16px;
+    border: 1px solid var(--primary);
+    color: var(--color-text-active);
+    background-color: rgba(var(--primary-rgb), 1);
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+
+  .btn-cta-dog:hover {
+    background-color: rgba(var(--primary-rgb), 0);
+    color: var(--color-primary);
+  }
+
+  /* ============================================= */
+  /* CTA-Newsletter - Bouton inscription newsletter */
+  /* ============================================= */
+  .btn-cta-newsletter {
+    padding: 0 60px;
+    border: 1px solid var(--primary);
+    height: 100%;
+    color: var(--color-text-active);
+    background-color: rgba(var(--primary-rgb), 1);
+    transition: background-color 0.3s ease;
+    border-radius: 32px;
+
+    font-family: var(--font-titre);
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .btn-cta-newsletter:hover {
+    background-color: rgba(var(--primary-rgb), 0);
+    color: var(--color-primary);
+  }
+
+  /* ============================================= */
+  /* COMPACT - Bouton compact */
+  /* ============================================= */
+  .btn-compact {
+    padding: 10px 16px 12px;
+  }
+
+  /* ============================================= */
+  /* PRIMARY - Variante principale */
+  /* ============================================= */
+  .btn-primary {
+    background: var(--cta);
+    color: var(--text-bg);
+    border-color: var(--cta);
+  }
+
+  .btn-primary:hover {
+    background: var(--text-bg);
+    color: var(--cta);
+  }
+
+  /* ============================================= */
+  /* SECONDARY - Variante secondaire */
+  /* ============================================= */
+  .btn-secondary {
+    background: transparent;
+    color: var(--cta);
+    border-color: var(--cta);
+  }
+
+  .btn-secondary:hover {
+    background: var(--cta);
+    color: var(--text-bg);
+  }
+
+  /* ============================================= */
+  /* Border - Variante sans background */
+  /* ============================================= */
+  .btn-border {
+    background: transparent;
+    color: var(--color-cta);
+    border-color: var(--color-cta);
+    border-radius: 32px;
+  }
+
+  .btn-border:hover {
+    background: var(--color-cta);
+    color: var(--text-bg);
+  }
+
+  /* ============================================= */
+  /* Filled - Variante background rempli*/
+  /* ============================================= */
+  .btn-filled {
+    background: var(--color-cta);
+    color: var(--text-bg);
+    border-radius: 32px;
+  }
+
+  .btn-filled:hover {
+    background: transparent;
+    color: var(--color-cta);
+    border-color: var(--color-cta);
+  }
+
+  /* ============================================= */
+  /* FULL WIDTH - Pleine largeur */
+  /* ============================================= */
+  .btn-full {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+</style>
+
+<!-- ============================================= -->
+<!-- EXEMPLES D'UTILISATION dans vos pages .astro -->
+<!-- ============================================= -->
+
+<!-- 
+import Button from './components/Button.astro';
+
+// 1. Bouton par défaut
+<Button>Adopt Pet</Button>
+
+// 2. Bouton avec ouverture dans un nouvel onglet
+<Button href="https://example.com" target="_blank">Visiter le site</Button>
+
+// 3. Bouton allongé (wide)
+<Button size="wide">Adopt Pet</Button>
+
+// 4. Bouton extra large
+<Button size="extraWide">Adopt Pet</Button>
+
+// 5. Bouton secondaire allongé
+<Button size="wide" variant="secondary">Adopt Pet</Button>
+
+// 6. Bouton ghost compact
+<Button size="compact" variant="ghost">Adopt Pet</Button>
+
+// 7. Bouton pleine largeur
+<Button size="wide" fullWidth>Adopt Pet</Button>
+
+// 8. Avec classes additionnelles
+<Button size="wide" class="ma-classe-custom">Adopt Pet</Button>
+-->

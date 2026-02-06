@@ -1,0 +1,84 @@
+---
+import SectionHeader from "src/components/shared/header-snippet.astro";
+import BlogGrid from "src/components/blog/blog-grid.astro";
+import { Stack, VStack } from "@styled-system/jsx";
+---
+
+<Stack className="full-width-bg">
+  <VStack className="container">
+    <SectionHeader title="Les vidéos communales" buttonHref="https://www.youtube.com/@sergelecomte9717"/>
+    <BlogGrid limit={2} />
+  </VStack>
+</Stack>
+
+<style>
+  /* ---------------- BASE ---------------- */
+  .full-width-bg {
+    background: var(--color-surface);
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 240px 20px;
+    gap: 75px;
+    box-sizing: border-box;
+  }
+
+  /* ---------------- LARGE DESKTOP ---------------- */
+  @media (max-width: 1440px) {
+    .container {
+      max-width: 1200px;
+      padding: 240px 40px;
+    }
+  }
+
+  /* ---------------- DESKTOP ---------------- */
+  @media (max-width: 1200px) {
+    .container {
+      max-width: 1000px;
+      padding: 200px 32px;
+      gap: 64px;
+    }
+  }
+
+  /* ---------------- TABLET LANDSCAPE ---------------- */
+  @media (max-width: 1024px) {
+    .container {
+      max-width: 100%;
+      padding: 160px 28px;
+      gap: 56px;
+    }
+  }
+
+  /* ---------------- TABLET ---------------- */
+  @media (max-width: 768px) {
+    .container {
+      padding: 120px 24px;
+      gap: 48px;
+    }
+  }
+
+  /* ---------------- MOBILE ---------------- */
+  @media (max-width: 480px) {
+    .container {
+      padding: 96px 16px;
+      gap: 36px;
+    }
+  }
+
+  /* ---------------- MOBILE SMALL ---------------- */
+  @media (max-width: 375px) {
+    .container {
+      padding: 80px 12px;
+      gap: 32px;
+    }
+  }
+</style>

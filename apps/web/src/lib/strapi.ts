@@ -118,9 +118,10 @@ export default async function fetchApi<T>({
       method,
       body: method === "GET" ? undefined : JSON.stringify({ data: body }),
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.API_TOKEN}`,
-      },
+      "Content-Type": "application/json; charset=utf-8",
+      "Accept": "application/json; charset=utf-8",
+      Authorization: `Bearer ${import.meta.env.API_TOKEN}`,
+    },
     });
 
     // Vérifier si la réponse est ok

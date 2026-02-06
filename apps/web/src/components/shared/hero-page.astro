@@ -1,0 +1,79 @@
+---
+import { Stack } from "@styled-system/jsx";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<Stack className="banner full-width-bg">
+  <div class="overlay"></div>
+  <h2>{title}</h2>
+</Stack>
+
+<style>
+  .banner {
+    background-color: var(--color-primary);
+    background-image: url(https://fastly.picsum.photos/id/128/3823/2549.jpg?hmac=VbPyA2vESva2YdoXqll9REBcbQIskgv_c-D60C1s0xc);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    height: 350px;
+    display: flex;
+    align-items: center;
+  }
+
+  .overlay {
+    position: absolute;
+    max-width: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--color-primary-rgb), 0.2);
+    z-index: 1;
+  }
+  h2 {
+    font-family: var(--font-titre);
+    font-size: 200px;
+    font-weight: 700;
+    color: var(--color-bg);
+    width: 100%;
+    z-index: 3;
+    margin: 0;
+    margin-top: auto;
+  }
+
+  /* Mobile devices */
+  @media (max-width: 640px) {
+    .banner {
+      height: 200px;
+      padding: 0.75rem;
+    }
+    h2 {
+      font-size: 3rem;
+    }
+  }
+
+  /* Tablets */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .banner {
+      height: 280px;
+    }
+    h2 {
+      font-size: 8rem;
+    }
+  }
+
+  /* Large screens */
+  @media (min-width: 1025px) {
+    .banner {
+      height: 350px;
+    }
+    h2 {
+      font-size: 12rem;
+    }
+  }
+</style>

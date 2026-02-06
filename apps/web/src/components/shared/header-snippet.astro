@@ -1,0 +1,99 @@
+---
+import { HStack } from "@styled-system/jsx";
+import Button from "src/components/shared/button.astro";
+
+interface Props {
+  title: string;
+  buttonText?: string;
+  buttonHref?: string;
+  showButton?: boolean;
+}
+
+const { title, buttonText = "Tout voir", buttonHref = "#", showButton = true } = Astro.props;
+---
+
+<HStack className="header-row" width="100%">
+  <h2>{title}</h2>
+
+  {
+    showButton && (
+      <Button variant="snippetBlog" target="_blank" href={buttonHref}>
+        {buttonText}
+      </Button>
+    )
+  }
+</HStack>
+
+<style>
+  /* ---------------- BASE ---------------- */
+
+  .header-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  h2 {
+    font-size: var(--size-title);
+    line-height: 1.11;
+    font-family: var(--font-primary);
+    font-weight: bold;
+    color: var(--color-primary);
+
+    max-width: 45%;
+    flex: 1;
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* ---------------- TABLET ---------------- */
+
+  @media (max-width: 1024px) {
+    h2 {
+      max-width: 60%;
+      font-size: calc(var(--size-title) * 0.9);
+    }
+  }
+
+  /* ---------------- TABLET SMALL ---------------- */
+
+  @media (max-width: 768px) {
+    .header-row {
+      align-items: flex-start;
+    }
+
+    h2 {
+      max-width: 70%;
+      font-size: calc(var(--size-title) * 0.85);
+      line-height: 1.15;
+    }
+  }
+
+  /* ---------------- MOBILE ---------------- */
+
+  @media (max-width: 480px) {
+    .header-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    h2 {
+      max-width: 100%;
+      font-size: calc(var(--size-title) * 0.75);
+      line-height: 1;
+    }
+  }
+
+  /* ---------------- MOBILE SMALL ---------------- */
+
+  @media (max-width: 360px) {
+    h2 {
+      font-size: calc(var(--size-title) * 0.7);
+    }
+  }
+</style>

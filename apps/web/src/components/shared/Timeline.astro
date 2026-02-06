@@ -1,0 +1,142 @@
+---
+import { HStack, VStack, Wrap, Box, Stack } from "@styled-system/jsx";
+import DropdownItem from "src/components/shared/dropdown.astro";
+import fetchApi from "../../lib/strapi";
+import type FAQ from "../../../src/interfaces/views/faq";
+
+const faqData = await fetchApi<FAQ>({
+  endpoint: "faq",
+  wrappedByKey: "data",
+  query: {
+    populate: "all",
+  },
+});
+
+// Extract questions from the nested structure
+const questions =
+  faqData?.questions_list?.map((item) => ({
+    question: item.question.title,
+    answer: item.question.text,
+  })) || [];
+---
+
+<Stack className="faq-container full-width-bg">
+  <Stack className="container">
+    <Stack className="title-section">
+      <h2>{faqData.title}</h2>
+    </Stack>
+    <Stack className="faq-section">
+      {
+        questions.length > 0 ? (
+          questions.map((item) => <DropdownItem question={item.question} answer={item.answer} />)
+        ) : (
+          <>
+            <h4>No data</h4>
+          </>
+        )
+      }
+    </Stack>
+  </Stack>
+</Stack>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach((item) => {
+      item.addEventListener("click", function () {
+        const isActive = this.classList.contains("active");
+        // Fermer tous les items
+        faqItems.forEach((i) => i.classList.remove("active"));
+        if (!isActive) {
+          this.classList.add("active");
+        }
+      });
+    });
+  });
+</script>
+<style>
+  .faq-container {
+    background-color: var(--color-bg);
+    padding: 240px 0;
+  }
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .title-section h2 {
+    font-size: var(--size-title);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-primary);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .faq-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Tablet Landscape */
+  @media (max-width: 1024px) {
+    .faq-container {
+      padding: 160px 0;
+    }
+
+    .container {
+      gap: 60px;
+    }
+
+    .title-section h2 {
+      font-size: 56px;
+    }
+  }
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    .faq-container {
+      padding: 120px 0;
+    }
+
+    .container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .title-section h2 {
+      font-size: 48px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .faq-container {
+      padding: 80px 0;
+    }
+
+    .container {
+      gap: 32px;
+    }
+
+    .title-section h2 {
+      font-size: 36px;
+    }
+
+    .faq-section {
+      gap: 12px;
+    }
+  }
+
+  /* Small Mobile */
+  @media (max-width: 375px) {
+    .faq-container {
+      padding: 60px 0;
+    }
+
+    .title-section h2 {
+      font-size: 32px;
+    }
+  }
+</style>

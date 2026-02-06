@@ -1,0 +1,327 @@
+---
+import { HStack, VStack } from "@styled-system/jsx";
+import Button from "src/components/shared/button.astro";
+import fetchApi from "../../lib/strapi";
+
+// Récupérer toutes les vidéos
+const videos = await fetchApi({
+  endpoint: "videos",
+  wrappedByKey: "data",
+});
+
+// Trier par date de création (la plus récente en premier) côté client
+const sortedVideos = videos.sort((a, b) => {
+  return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+});
+
+// Récupérer la vidéo la plus récente
+const latestVideo = sortedVideos[0];
+
+// Debug: afficher dans la console
+console.log("Vidéo la plus récente:", {
+  id: latestVideo?.id,
+  title: latestVideo?.Title,
+  createdAt: latestVideo?.createdAt
+});
+
+// Fonction pour extraire l'ID de la vidéo YouTube depuis différents formats d'URL
+function getYouTubeVideoId(url: string): string | null {
+  if (!url) return null;
+  
+  // Format: https://www.youtube.com/watch?v=VIDEO_ID
+  const watchMatch = url.match(/[?&]v=([^&]+)/);
+  if (watchMatch) return watchMatch[1];
+  
+  // Format: https://youtu.be/VIDEO_ID
+  const shortMatch = url.match(/youtu\.be\/([^?]+)/);
+  if (shortMatch) return shortMatch[1];
+  
+  // Format: https://www.youtube.com/embed/VIDEO_ID
+  const embedMatch = url.match(/embed\/([^?]+)/);
+  if (embedMatch) return embedMatch[1];
+  
+  return null;
+}
+
+const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
+---
+
+<section class="discover-section">
+  <div class="content-wrapper">
+    <VStack className="left-content">
+      <h1 class="title">{latestVideo?.Title || "Nos Vidéos"}</h1>
+      <p class="description">
+        {latestVideo?.Description || "Découvrez nos dernières vidéos"}
+      </p>
+      <HStack className="button-group">
+        {videoId && (
+          <Button 
+            variant="filled" 
+            target="_blank" 
+            href={latestVideo.lien}
+          > 
+            Voir sur YouTube 
+          </Button>
+        )}
+      </HStack>
+    </VStack>
+    <div class="right-content">
+      {videoId ? (
+        <div class="video-container">
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+            title={latestVideo.Title}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      ) : (
+        <div class="video-placeholder">
+          <p>Aucune vidéo disponible pour le moment</p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .discover-section {
+    min-height: 100vh;
+    padding: 100px 20px;
+    background: var(--color-surface);
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .content-wrapper {
+    display: flex;
+    gap: 120px;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .left-content {
+    flex: 0 0 40%;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  .right-content {
+    flex: 1;
+    min-height: 500px;
+  }
+
+  .title {
+    font-family: var(--font-titre);
+    font-size: var(--size-title);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .description {
+    font-family: var(--font-text);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--color-text);
+    max-width: 520px;
+    margin: 0;
+  }
+
+  .button-group {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* Video Container - Prend toute la hauteur */
+  .video-container {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 32px;
+    background: var(--color-surface-variant, #f5f5f5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary, #666);
+  }
+
+  /* Tablet - 1024px */
+  @media (max-width: 1024px) {
+    .discover-section {
+      padding: 120px 20px 60px;
+    }
+
+    .content-wrapper {
+      gap: 60px;
+      padding: 0 30px;
+    }
+
+    .left-content {
+      flex: 0 0 45%;
+    }
+
+    .title {
+      font-size: clamp(32px, 5vw, var(--size-title));
+    }
+
+    .description {
+      font-size: 15px;
+    }
+
+    .right-content {
+      min-height: 450px;
+    }
+
+    .video-container,
+    .video-placeholder {
+      min-height: 450px;
+    }
+  }
+
+  /* Tablet Small - 768px */
+  @media (max-width: 768px) {
+    .discover-section {
+      padding: 100px 16px 50px;
+      min-height: auto;
+    }
+
+    .content-wrapper {
+      flex-direction: column;
+      gap: 40px;
+      padding: 0 20px;
+      min-height: auto;
+    }
+
+    .left-content {
+      flex: 1;
+      gap: 24px;
+      text-align: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .right-content {
+      width: 100%;
+      min-height: 300px;
+    }
+
+    .title {
+      font-size: clamp(28px, 6vw, 42px);
+    }
+
+    .description {
+      font-size: 15px;
+      max-width: 100%;
+    }
+
+    .button-group {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .video-container,
+    .video-placeholder {
+      min-height: 300px;
+      border-radius: 20px;
+    }
+  }
+
+  /* Mobile - 480px */
+  @media (max-width: 480px) {
+    .discover-section {
+      padding: 80px 12px 40px;
+    }
+
+    .content-wrapper {
+      gap: 32px;
+      padding: 0 16px;
+    }
+
+    .left-content {
+      gap: 20px;
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .title {
+      font-size: clamp(24px, 7vw, 32px);
+    }
+
+    .description {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .button-group {
+      gap: 12px;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .button-group :global(a),
+    .button-group :global(button) {
+      width: 100%;
+      text-align: center;
+    }
+
+    .right-content {
+      min-height: 250px;
+    }
+
+    .video-container,
+    .video-placeholder {
+      min-height: 250px;
+      border-radius: 16px;
+    }
+  }
+
+  /* Mobile Small - 360px */
+  @media (max-width: 360px) {
+    .title {
+      font-size: 22px;
+    }
+
+    .description {
+      font-size: 13px;
+    }
+
+    .right-content {
+      min-height: 200px;
+    }
+
+    .video-container,
+    .video-placeholder {
+      min-height: 200px;
+    }
+  }
+</style>
