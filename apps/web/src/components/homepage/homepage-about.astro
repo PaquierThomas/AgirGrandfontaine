@@ -1,83 +1,121 @@
 ---
-import { VStack } from "@styled-system/jsx";
+import { Stack, VStack } from "@styled-system/jsx";
 ---
 
-<VStack className="about-content" gap={"48px"} alignItems={"flex-start"}>
-  
-  <div class="intro-section">
-    <h2>Notre vision</h2>
-    <p>
-      Le monde n'est pas manichéen avec d'un côté les bons et de l'autre les méchants. 
-      Il y a le plus souvent des hommes avec des vues, des formations, des cultures, 
-      des habitudes différentes.
-    </p>
-    <p>
-      L'ambition de Grandfontaine-info est de vous soumettre une communication avec un 
-      autre point de vue.
-    </p>
-  </div>
+<Stack className="full-width-bg">
+  <VStack className="about-content" alignItems="center" gap="75px">
 
-  <div class="mission-section">
-    <h2>Notre mission</h2>
-    <p>
-      L'élection municipale est le premier niveau de la démocratie publique. L'électeur 
-      peut constater rapidement ce qui change, ou pas, dans son environnement proche.
-    </p>
-    <p>
-      Ce site d'information vous donnera des pistes de réflexion sur ce qui va, ou pas, 
-      dans notre village, et ceux qui nous ont choqués. À vous d'aller y chercher dans 
-      les menus proposés des informations dont vous n'avez, peut-être, pas eu connaissance 
-      au cours de ce mandat municipal (ou le précédent).
-    </p>
-  </div>
+    {/* Image hero */}
+    <div class="hero-image">
+      <img
+        src="https://images.unsplash.com/photo-1695101137604-50e4015ab36e?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.1.0"
+        alt="Village surrounded by forest"
+      />
+    </div>
 
-  <div class="approach-section">
-    <h2>Notre démarche</h2>
-    <p>
-      On ne se présente pas contre quelqu'un mais pour un autre mode de gestion avec 
-      des conseillers actifs.
-    </p>
-    <p>
-      Chaque semaine, jusqu'à mars 2026, nous alimenterons ce site en construction avec 
-      des informations, des vidéos, ce que nous avons proposé, et ce que nous avons perçu 
-      comme des écueils de la gestion de la majorité en place.
-    </p>
-  </div>
+    {/* Contenu texte */}
+    <VStack className="text-content" gap="48px">
+      
+      <div class="intro-section">
+        <h2>Notre vision</h2>
+        <p>
+          Le monde n'est pas manichéen avec d'un côté les bons et de l'autre les méchants.
+          Il y a le plus souvent des hommes avec des vues, des formations, des cultures,
+          des habitudes différentes.
+        </p>
+        <p>
+          L'ambition de Grandfontaine-info est de vous soumettre une communication avec un
+          autre point de vue.
+        </p>
+      </div>
 
-  <div class="project-section highlight">
-    <h2>Notre projet pour 2026</h2>
-    <p>
-      <strong>Afin qu'il n'y ait pas d'ambiguïté sur la finalité de ce site :</strong> 
-      Nous avons le projet de déposer une liste, non encartée, lors de la prochaine 
-      élection municipale.
-    </p>
-    <p>
-      Si vous êtes prêt à partager vos compétences, vos idées, si vous avez un peu de 
-      temps à consacrer à la collectivité, et si travailler en équipe ne vous pose pas 
-      de problème, notre liste reste ouverte pour accueillir des femmes et des hommes 
-      dans le respect de la parité.
-    </p>
-    <p>
-      <strong>Contactez-nous à l'adresse mail ci-dessous.</strong> Et pourquoi ne pas 
-      nous donner simplement votre avis, nous en avons aussi besoin.
-    </p>
-  </div>
+      <div class="mission-section">
+        <h2>Notre mission</h2>
+        <p>
+          L'élection municipale est le premier niveau de la démocratie publique.
+          L'électeur peut constater rapidement ce qui change, ou pas, dans son
+          environnement proche.
+        </p>
+        <p>
+          Ce site d'information vous donnera des pistes de réflexion sur ce qui va, ou pas,
+          dans notre village, et ceux qui nous ont choqués.
+        </p>
+      </div>
 
-  <div class="note-section">
-    <p class="note">
-      <strong>Note :</strong> Notre liste « Agir avec les Grandifontains » avait 
-      réalisé un peu plus de 43% des suffrages exprimés en 2020 lors des élections 
-      municipales à Grandfontaine.
-    </p>
-  </div>
+      <div class="approach-section">
+        <h2>Notre démarche</h2>
+        <p>
+          On ne se présente pas contre quelqu'un mais pour un autre mode de gestion avec
+          des conseillers actifs.
+        </p>
+        <p>
+          Chaque semaine, jusqu'à mars 2026, nous alimenterons ce site en construction avec
+          des informations, des vidéos, ce que nous avons proposé.
+        </p>
+      </div>
 
-</VStack>
+      <div class="project-section highlight">
+        <h2>Notre projet pour 2026</h2>
+        <p>
+          <strong>Afin qu'il n'y ait pas d'ambiguïté sur la finalité de ce site :</strong>
+          Nous avons le projet de déposer une liste, non encartée, lors de la prochaine
+          élection municipale.
+        </p>
+        <p>
+          Si vous êtes prêt à partager vos compétences, vos idées, et un peu de temps,
+          notre liste reste ouverte.
+        </p>
+      </div>
+
+      <div class="note-section">
+        <p class="note">
+          <strong>Note :</strong> Notre liste « Agir avec les Grandifontains » avait
+          réalisé un peu plus de 43% des suffrages exprimés en 2020.
+        </p>
+      </div>
+
+    </VStack>
+  </VStack>
+</Stack>
 
 <style>
+  /* ---------- FULL WIDTH WRAPPER ---------- */
+  .full-width-bg {
+    background: var(--color-surface);
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+  }
+
+  /* ---------- CONTAINER ---------- */
   .about-content {
-    max-width: 850px;
     width: 100%;
-    padding: 80px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 240px 20px;
+    box-sizing: border-box;
+  }
+
+  /* ---------- HERO IMAGE ---------- */
+  .hero-image {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---------- TEXT CONTENT ---------- */
+  .text-content {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
   }
 
   h2 {
@@ -86,7 +124,6 @@ import { VStack } from "@styled-system/jsx";
     font-weight: 700;
     color: var(--color-primary);
     margin-bottom: 16px;
-    line-height: 1.2;
   }
 
   p {
@@ -97,35 +134,27 @@ import { VStack } from "@styled-system/jsx";
     margin-bottom: 16px;
   }
 
-  p:last-child {
-    margin-bottom: 0;
-  }
-
-  .intro-section,
-  .mission-section,
-  .approach-section,
-  .project-section,
-  .note-section {
-    width: 100%;
-  }
-
   .highlight {
     background-color: rgba(var(--color-primary-rgb), 0.05);
     padding: 32px;
-    border-radius: 8px;
     border-left: 4px solid var(--color-primary);
+    border-radius: 8px;
   }
 
   .note {
     font-style: italic;
-    color: rgba(var(--color-primary-rgb), 0.8);
     font-size: 16px;
+    opacity: 0.85;
   }
 
+  /* ---------- RESPONSIVE ---------- */
   @media (max-width: 768px) {
     .about-content {
-      padding: 60px 20px;
-      gap: 32px;
+      padding: 140px 20px;
+    }
+
+    .hero-image {
+      height: 260px;
     }
 
     h2 {
@@ -135,27 +164,15 @@ import { VStack } from "@styled-system/jsx";
     p {
       font-size: 16px;
     }
-
-    .highlight {
-      padding: 24px;
-    }
   }
 
   @media (max-width: 480px) {
     .about-content {
-      padding: 48px 16px;
+      padding: 100px 16px;
     }
 
     h2 {
       font-size: 24px;
-    }
-
-    p {
-      font-size: 15px;
-    }
-
-    .highlight {
-      padding: 20px;
     }
   }
 </style>
