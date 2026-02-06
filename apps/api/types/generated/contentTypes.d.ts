@@ -579,7 +579,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     category: Schema.Attribute.JSON &
       Schema.Attribute.CustomField<
         'plugin::multi-select.multi-select',
-        ['bien-\u00EAtre', 'guide']
+        ['urbanisme', 'finance', 'informations']
       > &
       Schema.Attribute.DefaultTo<'[]'>;
     cover: Schema.Attribute.Media<'images' | 'files'>;

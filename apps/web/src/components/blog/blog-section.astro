@@ -1,0 +1,20 @@
+---
+import { VStack } from "@styled-system/jsx";
+import BlogGrid from "./blog-grid.astro";
+import Filter from "../shared/filter.astro";
+import HeroPage from "src/components/shared/hero-page.astro";
+import Footer from "src/components/shared/footer.astro";
+---
+
+<HeroPage title="Blog" />
+<VStack className="blog-container" gap={6}>
+  <Filter type="blog" />
+  <BlogGrid />
+</VStack>
+
+<style>
+  .blog-container {
+    width: 100%;
+    padding: 200px 0;
+  }
+</style>

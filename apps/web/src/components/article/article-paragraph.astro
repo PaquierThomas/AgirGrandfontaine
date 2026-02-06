@@ -1,0 +1,44 @@
+---
+import { VStack } from "@styled-system/jsx";
+
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+---
+
+<VStack gap={3} justifyContent={"center"} alignItems={"flex-start"}>
+  <p>{content}</p>
+</VStack>
+<style>
+  p {
+    font-size: 16px;
+    font-family: var(--font-text);
+    line-height: 140%;
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) {
+    p {
+      font-size: 17px;
+      line-height: 135%;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    p {
+      font-size: 18px;
+      line-height: 130%;
+    }
+  }
+
+  /* Large Desktop */
+  @media (min-width: 1440px) {
+    p {
+      font-size: 18px;
+      line-height: 128%;
+    }
+  }
+</style>

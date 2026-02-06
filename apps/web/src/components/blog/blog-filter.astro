@@ -1,0 +1,126 @@
+---
+import { HStack } from "@styled-system/jsx";
+import Tags from "src/components/shared/tags.astro";
+
+interface FilterOption {
+  id: string;
+  icon?: "paw" | "guide";
+  label: string;
+}
+
+const filters: FilterOption[] = [
+  { id: "all", label: "All Articles" },
+  { id: "pet-care", icon: "paw", label: "Pet Care" },
+  { id: "guide", icon: "guide", label: "Guide" },
+];
+---
+
+<HStack className="blog-filter" gap={2}>
+  {
+    filters.map((filter, index) => (
+      <button
+        class="filter-button"
+        data-filter={filter.id}
+        data-active={index === 0 ? "true" : "false"}
+        aria-label={`Filter by ${filter.label}`}
+      >
+        <div class="tag-wrapper" data-variant={index === 0 ? "colored" : "outlined"}>
+          <Tags
+            icon={filter.icon}
+            label={filter.label}
+            variant={index === 0 ? "colored" : "outlined"}
+          />
+        </div>
+      </button>
+    ))
+  }
+</HStack>
+
+<style>
+  .blog-filter {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .filter-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .filter-button:hover {
+    opacity: 0.8;
+  }
+</style>
+
+<script>
+  function initBlogFilter() {
+    const filterButtons = document.querySelectorAll(".filter-button");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filterValue = button.getAttribute("data-filter");
+
+        // Update all buttons
+        filterButtons.forEach((btn) => {
+          btn.setAttribute("data-active", "false");
+        });
+
+        // Set clicked button as active
+        button.setAttribute("data-active", "true");
+
+        // Dispatch custom event for filtering articles
+        document.dispatchEvent(
+          new CustomEvent("blog-filter-change", {
+            detail: { filter: filterValue },
+          })
+        );
+
+        // Reload the page to update variants (Astro requirement)
+        const url = new URL(window.location.href);
+        url.searchParams.set("filter", filterValue);
+        window.history.pushState({}, "", url);
+
+        // Filter articles immediately without reload
+        filterArticles(filterValue);
+
+        console.log("Filter changed to:", filterValue);
+      });
+    });
+  }
+
+  function filterArticles(filter) {
+    const articles = document.querySelectorAll(".card");
+
+    articles.forEach((article) => {
+      if (filter === "all") {
+        article.style.display = "flex";
+      } else {
+        // Check if article has the matching tag
+        const tagLabels = Array.from(article.querySelectorAll(".tags p")).map((p) =>
+          p.textContent?.toLowerCase()
+        );
+
+        const shouldShow = tagLabels.some((label) => {
+          if (filter === "pet-care") return label?.includes("pet care");
+          if (filter === "guide") return label?.includes("guide");
+          return false;
+        });
+
+        article.style.display = shouldShow ? "flex" : "none";
+      }
+    });
+  }
+
+  // Initialize on page load
+  document.addEventListener("astro:page-load", initBlogFilter);
+
+  // Check URL on load for filter parameter
+  document.addEventListener("astro:page-load", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filter = urlParams.get("filter") || "all";
+    filterArticles(filter);
+  });
+</script>

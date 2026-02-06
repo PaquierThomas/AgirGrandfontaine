@@ -1,0 +1,91 @@
+---
+import { VStack } from "@styled-system/jsx";
+interface Props {
+  title: string;
+  content: string;
+  level?: 3 | 4;
+}
+const { title, content, level = 3 } = Astro.props;
+const HeadingTag = `h${level}` as any;
+---
+
+<VStack gap={3} justifyContent={"center"} alignItems={"flex-start"}>
+  <HeadingTag>{title}</HeadingTag>
+  <p>{content}</p>
+</VStack>
+<style>
+  h3 {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: var(--font-titre);
+    line-height: 110%;
+  }
+
+  h4 {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: var(--font-titre);
+    line-height: 120%;
+    text-wrap: wrap;
+  }
+
+  p {
+    font-size: 16px;
+    font-family: var(--font-text);
+    line-height: 140%;
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) {
+    h3 {
+      font-size: 45px;
+      line-height: 120%;
+    }
+
+    h4 {
+      font-size: 30px;
+      line-height: 130%;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 135%;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    h3 {
+      font-size: 55px;
+      line-height: 125%;
+    }
+
+    h4 {
+      font-size: 35px;
+      line-height: 135%;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 130%;
+    }
+  }
+
+  /* Large Desktop */
+  @media (min-width: 1440px) {
+    h3 {
+      font-size: 65px;
+      line-height: 130%;
+    }
+
+    h4 {
+      font-size: 40px;
+      line-height: 140%;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 128%;
+    }
+  }
+</style>

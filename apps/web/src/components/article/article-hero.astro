@@ -1,0 +1,130 @@
+---
+import { Stack, VStack } from "@styled-system/jsx";
+
+interface Props {
+  title: string;
+  date: string;
+  image: string;
+  alt?: string;
+}
+
+const { title, date, image, alt } = Astro.props;
+---
+
+<Stack className="hero-article" style={{ backgroundImage: `url("${image}")` }}>
+  <div class="image-overlay">
+    <VStack className="hero-title" justifyContent="flex-end">
+      <p>{date}</p>
+      <h2>{title}</h2>
+    </VStack>
+  </div>
+</Stack>
+<style>
+  .hero-article {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 470px;
+    background-size: cover;
+    background-position: center;
+  }
+  .image-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(116, 71, 0, 0.2);
+    pointer-events: none;
+  }
+  p {
+    font-size: 15px;
+    color: var(--text-bg);
+    font-family: var(--font-text);
+  }
+  h2 {
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 80px;
+    color: var(--text-bg);
+    max-width: 750px;
+  }
+  .hero-title {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    gap: 16px;
+    font-family: var(--font-titre);
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Tablet */
+  @media (max-width: 768px) {
+    .hero-article {
+      height: 400px;
+    }
+
+    h2 {
+      font-size: 48px;
+      line-height: 52px;
+      max-width: 90%;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .hero-title {
+      gap: 12px;
+      padding-bottom: 24px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 480px) {
+    .hero-article {
+      height: 350px;
+    }
+
+    h2 {
+      font-size: 32px;
+      line-height: 36px;
+      max-width: 100%;
+    }
+
+    p {
+      font-size: 13px;
+    }
+
+    .hero-title {
+      gap: 10px;
+      padding-bottom: 20px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+
+  /* Small Mobile */
+  @media (max-width: 375px) {
+    .hero-article {
+      height: 320px;
+    }
+
+    h2 {
+      font-size: 28px;
+      line-height: 32px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
+    .hero-title {
+      padding-bottom: 16px;
+    }
+  }
+</style>

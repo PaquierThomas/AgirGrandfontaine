@@ -30,8 +30,9 @@
       "customField": "plugin::multi-select.multi-select",
       "default": "[]",
       "options": [
-        "bien-être",
-        "guide"
+        "urbanisme",
+        "finance",
+        "informations"
       ]
     },
     "slug": {

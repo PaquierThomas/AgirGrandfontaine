@@ -22,18 +22,6 @@ import Logo from "./logo.astro";
       <nav class="header-nav">
         <HStack gap={10} className="header-nav-div">
           <a href="/">Accueil</a>
-          <div class="nav-dropdown">
-            <span class="dropdown-trigger">
-              Nos Lévriers
-              <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <div class="dropdown-menu">
-              <a href="/chiots">Chiots</a>
-              <a href="/reproducteurs">Reproducteurs</a>
-            </div>
-          </div>
           <a href="/blog">Blog</a>
           <a href="/contact">Contact</a>
         </HStack>
@@ -49,22 +37,12 @@ import Logo from "./logo.astro";
     <nav class="mobile-nav" id="mobile-menu">
       <a href="/">Accueil</a>
       <div class="mobile-dropdown">
-        <button class="mobile-dropdown-trigger" id="mobile-levriers-btn">
-          Nos Lévriers
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <div class="mobile-dropdown-content" id="mobile-levriers-content">
-          <a href="/chiots">Chiots</a>
-          <a href="/reproducteurs">Reproducteurs</a>
-        </div>
+        
+        
       </div>
       <a href="/blog">Blog</a>
       <a href="/contact">Contact</a>
-      <div class="mobile-cta">
-        <Button variant="filled" href="/adopter">Adopter</Button>
-      </div>
+      
     </nav>
   </Box>
 </header>

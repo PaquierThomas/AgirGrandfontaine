@@ -1,36 +1,15 @@
 ---
 import { HStack } from "@styled-system/jsx";
-import CalendarIcon from "src/assets/icons/calendar.svg";
-import MaleIcon from "src/assets/icons/male.svg";
-import FemaleIcon from "src/assets/icons/female.svg";
-import ClockIcon from "src/assets/icons/clock.svg";
-import PawIcon from "src/assets/icons/paw.svg";
-import GuideIcon from "src/assets/icons/guide.svg";
-import ChiotIcon from "src/assets/icons/dog.svg";
 
 interface Props {
-  icon?: "calendar" | "male" | "female" | "clock" | "paw" | "guide" | "chiot";
   label: string;
-  variant?: "default" | "colored" | "outlined" | "dogDetails" | "retraites";
+  variant?: "default" | "colored" | "outlined" | "highlight";
 }
 
-const { icon, label, variant = "default" } = Astro.props;
-
-const icons = {
-  calendar: CalendarIcon,
-  male: MaleIcon,
-  female: FemaleIcon,
-  clock: ClockIcon,
-  paw: PawIcon,
-  guide: GuideIcon,
-  chiot: ChiotIcon,
-};
-
-const Icon = icon ? icons[icon] : null;
+const { label, variant = "default" } = Astro.props;
 ---
 
-<HStack className=`tags tags-${variant}`>
-  {Icon && <Icon class="icon" />}
+<HStack className={`tags tags-${variant}`}>
   <p>{label}</p>
 </HStack>
 
@@ -46,19 +25,13 @@ const Icon = icon ? icons[icon] : null;
     font-weight: 500;
   }
 
-  .tags .icon {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-  }
-
   /* Default variant */
   .tags-default {
     background-color: var(--color-bg);
     color: var(--color-primary);
   }
 
-  /* Colored variant */
+  /* Colored variant - pour les tags actifs dans les filtres */
   .tags-colored {
     background-color: var(--color-primary);
     color: #ffffff;
@@ -66,21 +39,7 @@ const Icon = icon ? icons[icon] : null;
     padding: 13px 19px 15px;
   }
 
-  .tags-colored .icon {
-    filter: brightness(0) invert(1);
-  }
-
-  /* Colored DogPersonnalité */
-  .tags-dogDetails {
-    background: rgba(var(--color-primary-rgb), 0.03);
-    color: var(--color-primary);
-    border: 1px solid rgba(var(--color-primary-rgb), 0.08);
-    padding: 20px 24px;
-    border-radius: 16px;
-    font-size: 16px;
-  }
-
-  /* Outlined variant */
+  /* Outlined variant - pour les tags inactifs dans les filtres */
   .tags-outlined {
     background-color: transparent;
     border: 1px solid rgba(var(--color-primary-rgb), 0.08);
@@ -88,10 +47,13 @@ const Icon = icon ? icons[icon] : null;
     padding: 13px 19px 15px;
   }
 
-  /* Tags retraités */
-  .tags-retraites {
-    background-color: var(--color-primary);
-    color: #ffffff;
-    border: 1px solid var(--color-primary);
+  /* Highlight variant - pour mettre en avant certaines informations */
+  .tags-highlight {
+    background: rgba(var(--color-primary-rgb), 0.03);
+    color: var(--color-primary);
+    border: 1px solid rgba(var(--color-primary-rgb), 0.08);
+    padding: 20px 24px;
+    border-radius: 16px;
+    font-size: 16px;
   }
 </style>

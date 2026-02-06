@@ -1,19 +1,16 @@
 ---
 import { HStack, VStack, Wrap, Box, Stack } from "@styled-system/jsx";
 import GoogleMap from "src/components/shared/google-map.astro";
-
 import fetchApi from "../../lib/strapi";
 import type PersonalInformation from "src/interfaces/views/personal_information";
-
 const perso = await fetchApi<PersonalInformation>({
-  endpoint: "personal-information", // le type de contenu à récupérer
-  wrappedByKey: "data", // la clé pour désenvelopper la réponse
+  endpoint: "personal-information",
+  wrappedByKey: "data",
   query: {
-    fields: ["*"], // pour inclure toutes les relations et médias
+    fields: ["*"],
   },
 });
 ---
-
 <VStack
   alignItems={"flex-start"}
   justifyContent={"flex-start"}
@@ -22,30 +19,35 @@ const perso = await fetchApi<PersonalInformation>({
   gap={"96px"}
   maxW={"850px"}
 >
-  <h2>Prise de contact</h2>
-  <HStack width={"100%"} justifyContent={"space-between"} gap={"40px"} className="contact-row">
+  <h2>Nous Contacter</h2>
+  <HStack 
+    width={"100%"} 
+    justifyContent={"space-between"} 
+    alignItems={"flex-start"}
+    gap={"40px"} 
+    className="contact-row"
+  >
+  <VStack className="contact-link" w={"50%"}>
+    <p>Nous sommes à:</p>
+    <a target="_blank" href="https://maps.app.goo.gl/9Hujk3U63aUWfoeH8" class="address">{perso?.adress}</a>
+  </VStack>
     <VStack className="contact-link" w={"50%"}>
       <p>Téléphone:</p>
       <a href={`tel:${perso?.phone}`}>{perso?.phone}</a>
     </VStack>
-    <VStack className="contact-link" w={"50%"}>
+  </HStack>
+  <HStack
+    width={"100%"}
+    gap={"40px"}
+    className="contact-row"
+  >
+    <VStack className="contact-link" w={"100%"}>
       <p>Email:</p>
       <a target="_blank" href={`mailto:${perso?.email}`}>{perso?.email}</a>
     </VStack>
   </HStack>
-  <HStack
-    width={"100%"}
-    justifyContent={"space-between"}
-    alignItems={"stretch"}
-    gap={"40px"}
-    className="contact-row"
-  >
-    <VStack className="contact-link" w={"50%"}>
-      <p>Nous sommes à:</p>
-      <a href="" class="address">{perso?.adress}</a>
-    </VStack>
-  </HStack>
 </VStack>
+
 <style>
   .left-column {
     height: 100%;
@@ -60,7 +62,8 @@ const perso = await fetchApi<PersonalInformation>({
     font-size: 80px;
     font-weight: 700;
     color: var(--color-primary);
-    max-width: 480px;
+    max-width: 100%;
+    width: 100%;
     line-height: 1.1;
   }
   p {
@@ -88,7 +91,6 @@ const perso = await fetchApi<PersonalInformation>({
     gap: 4px;
     min-width: 0;
   }
-
   /* Tablets and below */
   @media (max-width: 1024px) {
     .left-column {
@@ -101,7 +103,6 @@ const perso = await fetchApi<PersonalInformation>({
       font-size: 24px;
     }
   }
-
   /* Mobile devices */
   @media (max-width: 768px) {
     .left-column {
@@ -126,7 +127,6 @@ const perso = await fetchApi<PersonalInformation>({
       max-width: 100%;
     }
   }
-
   /* Small mobile */
   @media (max-width: 480px) {
     .left-column {

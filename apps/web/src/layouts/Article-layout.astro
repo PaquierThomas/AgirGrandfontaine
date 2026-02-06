@@ -1,0 +1,88 @@
+---
+// src/components/article/article-layout.astro
+import { HStack, VStack } from "@styled-system/jsx";
+import ArticleSidebar from "src/components/article/article-sidebar.astro";
+---
+
+<HStack className="article-layout">
+  <!-- Colonne gauche - Sidebar -->
+  <slot name="sidebar" />
+  <!-- Colonne droite - Contenu Article -->
+  <article class="article-main">
+    <VStack gap={"40px"} className="article-content">
+      <slot />
+    </VStack>
+  </article>
+</HStack>
+<style>
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 80px 20px 100px;
+    align-items: start;
+  }
+
+  .article-layout:not(:has(.article-sidebar)) {
+    grid-template-columns: 1fr;
+  }
+
+  /* Contenu Article */
+  .article-main {
+    color: var(--color-primary);
+    width: 100%;
+  }
+
+  .article-content {
+    max-width: 100%;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) {
+    .article-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 720px;
+      padding: 120px 40px 140px;
+    }
+
+    .article-content {
+      max-width: 100%;
+      gap: 32px;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1024px) {
+    .article-layout {
+      grid-template-columns: 240px 1fr;
+      gap: 40px;
+      max-width: 960px;
+      padding: 160px 60px 180px;
+    }
+
+    .article-content {
+      max-width: 650px;
+      gap: 36px;
+    }
+  }
+
+  /* Large Desktop */
+  @media (min-width: 1440px) {
+    .article-layout {
+      grid-template-columns: 20% 80%;
+      gap: 40px;
+      max-width: 1000px;
+      padding: 200px 0 240px;
+    }
+
+    .article-content {
+      max-width: 750px;
+      gap: 40px;
+    }
+  }
+</style>

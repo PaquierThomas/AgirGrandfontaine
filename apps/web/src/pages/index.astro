@@ -5,6 +5,10 @@ import "../styles/global.css";
 import fetchApi from "../lib/strapi";
 import HomepageHero from "src/components/homepage/homepage-hero.astro";
 import type Dog from "../../src/interfaces/dog";
+import HomepageBlogSnippet from "src/components/homepage/homepage-blog-snippet.astro";
+import HomepageNews from "src/components/homepage/Homepage-News.astro";
+import HomepageAbout from "src/components/homepage/homepage-about.astro";
+
 const vedettes = await fetchApi<Dog[]>({
   endpoint: "dogs",
   wrappedByKey: "data",
@@ -13,13 +17,10 @@ const vedettes = await fetchApi<Dog[]>({
   },
 });
 ---
-<pre>{JSON.stringify(vedettes, null, 2)}</pre>
-
 <Layout title="Page d'accueil">
-  <h1>Hello world</h1>
+  <HomepageHero />
+  <HomepageNews/>
+  <HomepageAbout />
+  <HomepageBlogSnippet />
 </Layout>
-
-
-
-
 <style></style>

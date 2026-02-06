@@ -1,0 +1,33 @@
+---
+import { VStack, HStack } from "@styled-system/jsx";
+
+interface Props {
+  legend: string;
+  image: string;
+  alt?: string;
+}
+
+const { legend, image, alt = "" } = Astro.props;
+---
+
+<HStack gap={6} alignItems="flex-start">
+  <VStack gap={2} alignItems="flex-start">
+    <img src={image} alt={alt} class="article-image" />
+    <span class="legend">{legend}</span>
+  </VStack>
+</HStack>
+
+<style>
+  .article-image {
+    width: 100%;
+    height: auto;
+    border-radius: 32px;
+    object-fit: cover;
+  }
+
+  .legend {
+    font-size: 14px;
+    font-family: var(--font-text);
+    color: rgba(var(--color-primary-rgb), 0.8);
+  }
+</style>

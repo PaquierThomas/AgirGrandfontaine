@@ -1,0 +1,120 @@
+---
+// pages/articles/[slug].astro
+import Layout from "../../layouts/Layout.astro";
+import ArticleHero from "../../components/article/article-hero.astro";
+import ArticleLayout from "../../layouts/Article-layout.astro";
+import ArticleSidebar from "../../components/article/article-sidebar.astro";
+import ArticleParagraph from "../../components/article/article-paragraph.astro";
+import ArticleImageBlock from "../../components/article/article-image.astro";
+import fetchApi, { getImagesApi } from "../../lib/strapi";
+import type Article from "../../interfaces/article";
+
+// Générer les routes statiques pour tous les articles
+export async function getStaticPaths() {
+  try {
+    const articles = await fetchApi<Article[]>({
+      endpoint: "articles",
+      wrappedByKey: "data",
+      query: {
+        populate: "all",
+      },
+    });
+
+    // Vérification si articles existe et est un tableau
+    if (!articles || !Array.isArray(articles)) {
+      console.error("Aucun article récupéré ou format incorrect:", articles);
+      return [];
+    }
+
+    console.log(`${articles.length} articles trouvés`);
+
+    return articles.map((article) => ({
+      params: { slug: article.slug },
+      props: { article },
+    }));
+  } catch (error) {
+    console.error("Erreur lors de la récupération des articles:", error);
+    return [];
+  }
+}
+
+// Récupérer l'article depuis les props
+const { article } = Astro.props;
+
+// Si pas d'article, rediriger vers 404
+if (!article) {
+  return Astro.redirect("/404");
+}
+
+// Helper pour formater la date
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+// Préparer les données
+const coverImage = article.cover ? getImagesApi(article.cover) : "";
+const formattedDate = formatDate(article.date);
+const category = article.category?.[0] || "Article";
+---
+
+<Layout title={article.title} description={article.description}>
+  <ArticleHero
+    title={article.title}
+    date={formattedDate}
+    image={coverImage}
+    alt={article.cover?.alternativeText || article.title}
+  />
+
+  <ArticleLayout>
+    <ArticleSidebar
+      slot="sidebar"
+      category={category}
+      readTime={`${article.read_time} minutes de lecture`}
+      date={formattedDate}
+    />
+
+    <!-- Rendu dynamique des blocs -->
+    {
+      article.blocks && article.blocks.length > 0 ? (
+        article.blocks.map((block) => {
+          switch (block.__component) {
+            case "shared.paragraph":
+              return <ArticleParagraph content={block.text} />;
+
+            case "shared.media":
+              if (block.image) {
+                return (
+                  <ArticleImageBlock
+                    legend={block.legend || ""}
+                    image={getImagesApi(block.image)}
+                    alt={block.image.alternativeText || "Image de l'article"}
+                  />
+                );
+              }
+              return null;
+
+            default:
+              return null;
+          }
+        })
+      ) : (
+        <div class="no-content">
+          <p>Aucun contenu disponible pour cet article.</p>
+        </div>
+      )
+    }
+  </ArticleLayout>
+</Layout>
+
+<style>
+  .no-content {
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+  }
+</style>

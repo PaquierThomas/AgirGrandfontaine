@@ -1,0 +1,96 @@
+---
+// pages/articles/[slug].astro
+import Layout from "../../layouts/Layout.astro";
+import ArticleHero from "../../components/article/article-hero.astro";
+import ArticleLayout from "../../layouts/Article-layout.astro";
+import ArticleSidebar from "../../components/article/article-sidebar.astro";
+import ArticleParagraph from "../../components/article/article-paragraph.astro";
+import ArticleParagraphTitle from "../../components/article/article-paragraph-title.astro";
+import ArticleImageBlock from "../../components/article/article-image.astro";
+import fetchApi, { getImagesApi } from "../../lib/strapi";
+import type Article from "../../interfaces/article";
+
+// Générer les routes statiques pour tous les articles
+export async function getStaticPaths() {
+  const articles = await fetchApi<Article[]>({
+    endpoint: "articles",
+    wrappedByKey: "data",
+    query: {
+      populate: "all",
+    },
+  });
+// test
+  // Add null check to prevent the error
+  if (!articles || !Array.isArray(articles)) {
+    console.error("Articles data is null or not an array:", articles);
+    return [];
+  }
+
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+// Récupérer l'article depuis les props
+const { article } = Astro.props;
+
+// Helper pour formater la date
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+// Préparer les données
+const coverImage = article.cover ? getImagesApi(article.cover) : "";
+const formattedDate = formatDate(article.date);
+const category = article.category?.[0] || "Article";
+---
+
+<Layout title={article.title} description={article.description}>
+  <ArticleHero
+    title={article.title}
+    date={formattedDate}
+    image={coverImage}
+    alt={article.cover?.alternativeText || article.title}
+  />
+  <ArticleLayout>
+    <ArticleSidebar
+      slot="sidebar"
+      category={category}
+      readTime={`${article.read_time} minutes de lecture`}
+      date={formattedDate}
+    />
+    <!-- Rendu dynamique des blocs -->
+    {
+      article.blocks?.map((block) => {
+        switch (block.__component) {
+          case "shared.introduction":
+            return (
+              <ArticleParagraphTitle title={block.title} content={block.paragraph} level={3} />
+            );
+          case "shared.paragraph":
+            return <ArticleParagraph content={block.text} />;
+          case "shared.paragraph-subtitle":
+            return (
+              <ArticleParagraphTitle title={block.subtitle} content={block.paragraph} level={4} />
+            );
+          case "shared.media":
+            return block.image ? (
+              <ArticleImageBlock
+                legend={block.legend || ""}
+                image={getImagesApi(block.image)}
+                alt={block.image.alternativeText || "Image de l'article"}
+              />
+            ) : null;
+          default:
+            return null;
+        }
+      })
+    }
+  </ArticleLayout>
+</Layout>

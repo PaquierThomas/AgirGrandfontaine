@@ -1,0 +1,205 @@
+---
+import { HStack } from "@styled-system/jsx";
+import Tags from "src/components/shared/tags.astro";
+
+interface FilterOption {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  type?: "blog" | "elections";
+}
+
+const { type = "blog" } = Astro.props;
+
+// Configuration des filtres selon le type
+const blogFilters: FilterOption[] = [
+  { id: "all", label: "Tous les articles" },
+  { id: "urbanisme", label: "Urbanisme" },
+  { id: "finance", label: "Finance" },
+  { id: "informations", label: "Informations" },
+];
+
+const electionFilters: FilterOption[] = [
+  { id: "all", label: "Tous" },
+  { id: "urbanisme", label: "Urbanisme" },
+  { id: "finance", label: "Finance" },
+  { id: "informations", label: "Informations" },
+];
+
+const filters = type === "elections" ? electionFilters : blogFilters;
+---
+
+<HStack className="filter-container" gap={2} data-filter-type={type}>
+  {
+    filters.map((filter, index) => (
+      <button
+        class="filter-button"
+        data-filter={filter.id}
+        data-active={index === 0 ? "true" : "false"}
+        aria-label={`Filtrer par ${filter.label}`}
+      >
+        <div class="tag-wrapper">
+          <Tags
+            label={filter.label}
+            variant={index === 0 ? "colored" : "outlined"}
+          />
+        </div>
+      </button>
+    ))
+  }
+</HStack>
+
+<style>
+  .filter-container {
+    width: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .filter-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .filter-button:hover {
+    opacity: 0.8;
+  }
+
+  .filter-button[data-active="true"] .tag-wrapper :global(.tags) {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border: 1px solid var(--color-primary);
+  }
+
+  .filter-button[data-active="false"] .tag-wrapper :global(.tags) {
+    background-color: transparent;
+    border: 1px solid rgba(var(--color-primary-rgb), 0.08);
+    color: var(--color-primary);
+  }
+</style>
+
+<script>
+  function initFilter() {
+    const filterContainer = document.querySelector(".filter-container");
+    if (!filterContainer) return;
+
+    const filterType = filterContainer.getAttribute("data-filter-type");
+    const filterButtons = filterContainer.querySelectorAll(".filter-button");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filterValue = button.getAttribute("data-filter");
+
+        // Mettre à jour tous les boutons
+        filterButtons.forEach((btn) => {
+          btn.setAttribute("data-active", "false");
+          const tagWrapper = btn.querySelector(".tag-wrapper");
+          const tags = tagWrapper?.querySelector(".tags");
+
+          if (tags) {
+            tags.style.backgroundColor = "transparent";
+            tags.style.border = "1px solid rgba(var(--color-primary-rgb), 0.08)";
+            tags.style.color = "var(--color-primary)";
+          }
+        });
+
+        // Activer le bouton cliqué
+        button.setAttribute("data-active", "true");
+        const activeTagWrapper = button.querySelector(".tag-wrapper");
+        const activeTags = activeTagWrapper?.querySelector(".tags");
+
+        if (activeTags) {
+          activeTags.style.backgroundColor = "var(--color-primary)";
+          activeTags.style.border = "1px solid var(--color-primary)";
+          activeTags.style.color = "#ffffff";
+        }
+
+        // Appeler la fonction de filtrage appropriée
+        if (filterType === "elections") {
+          filterElections(filterValue);
+        } else {
+          filterBlog(filterValue);
+        }
+
+        console.log(`Filtre ${filterType} changé:`, filterValue);
+      });
+    });
+  }
+
+  function filterElections(filter: string) {
+    const cards = document.querySelectorAll(".card-link");
+
+    cards.forEach((card) => {
+      const tags = card.querySelectorAll(".tags p");
+      const tagTexts = Array.from(tags).map((tag) => tag.textContent?.toLowerCase().trim());
+
+      let shouldShow = false;
+
+      if (filter === "all") {
+        shouldShow = true;
+      } else if (filter === "urbanisme") {
+        shouldShow = tagTexts.some((text) => text?.includes("urbanisme"));
+      } else if (filter === "finance") {
+        shouldShow = tagTexts.some((text) => text?.includes("finance"));
+      } else if (filter === "informations") {
+        shouldShow = tagTexts.some((text) => text?.includes("informations") || text?.includes("info"));
+      }
+
+      applyFilter(card as HTMLElement, shouldShow);
+    });
+  }
+
+  function filterBlog(filter: string) {
+    const blogCards = document.querySelectorAll("#articles-grid > .card-link");
+
+    blogCards.forEach((cardLink) => {
+      const tags = cardLink.querySelectorAll(".tags p");
+      const tagTexts = Array.from(tags).map((tag) => tag.textContent?.toLowerCase().trim());
+
+      let shouldShow = false;
+
+      if (filter === "all") {
+        shouldShow = true;
+      } else if (filter === "urbanisme") {
+        shouldShow = tagTexts.some((text) => text?.includes("urbanisme"));
+      } else if (filter === "finance") {
+        shouldShow = tagTexts.some((text) => text?.includes("finance"));
+      } else if (filter === "informations") {
+        shouldShow = tagTexts.some((text) => text?.includes("informations") || text?.includes("info"));
+      }
+
+      applyFilter(cardLink as HTMLElement, shouldShow);
+    });
+  }
+
+  function applyFilter(element: HTMLElement, shouldShow: boolean) {
+    if (shouldShow) {
+      element.style.display = "flex";
+      setTimeout(() => {
+        element.style.opacity = "1";
+        element.style.transform = "scale(1)";
+      }, 10);
+    } else {
+      element.style.opacity = "0";
+      element.style.transform = "scale(0.95)";
+      setTimeout(() => {
+        element.style.display = "none";
+      }, 300);
+    }
+  }
+
+  // Initialiser au chargement de la page
+  document.addEventListener("astro:page-load", initFilter);
+
+  // Pour les sites non-Astro
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFilter);
+  } else {
+    initFilter();
+  }
+</script>

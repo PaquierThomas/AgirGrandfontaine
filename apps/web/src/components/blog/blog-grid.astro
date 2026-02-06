@@ -1,6 +1,8 @@
 ---
 import { Stack } from "@styled-system/jsx";
-import fetchApi from "../../lib/strapi";
+import BlogCard from "./blog-card.astro";
+import fetchApi, { getImagesApi } from "../../lib/strapi";
+import type Article from "../../../src/interfaces/article";
 
 interface Props {
   limit?: number;
@@ -8,76 +10,62 @@ interface Props {
 
 const { limit } = Astro.props;
 
-// Récupérer toutes les vidéos
-const videos = await fetchApi({
-  endpoint: "videos",
+const articles = await fetchApi<Article[]>({
+  endpoint: "articles",
   wrappedByKey: "data",
+  query: {
+    populate: "all",
+  },
 });
 
-// Trier par date de création (la plus récente en premier)
-const sortedVideos = videos.sort((a, b) => {
-  return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-});
-
-// Limiter le nombre de vidéos si nécessaire
-const displayedVideos = limit ? sortedVideos.slice(0, limit) : sortedVideos;
-
-// Fonction pour extraire l'ID de la vidéo YouTube
-function getYouTubeVideoId(url: string): string | null {
-  if (!url) return null;
-  
-  const watchMatch = url.match(/[?&]v=([^&]+)/);
-  if (watchMatch) return watchMatch[1];
-  
-  const shortMatch = url.match(/youtu\.be\/([^?]+)/);
-  if (shortMatch) return shortMatch[1];
-  
-  const embedMatch = url.match(/embed\/([^?]+)/);
-  if (embedMatch) return embedMatch[1];
-  
-  return null;
+// Helper pour formater la date
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
+
+// Helper pour générer les tags d'un article
+function getArticleTags(article: Article) {
+  const tags = [];
+
+  // Ajouter la catégorie si elle existe
+  if (article.category && article.category.length > 0) {
+    tags.push({
+      icon: article.category[0] === "guide" ? "guide" : "paw",
+      label: article.category[0],
+    });
+  }
+
+  // Ajouter le temps de lecture
+  if (article.read_time) {
+    tags.push({
+      icon: "clock",
+      label: `${article.read_time} Min de lecture`,
+    });
+  }
+
+  return tags;
+}
+
+const displayedArticles = limit ? articles.slice(0, limit) : articles;
 ---
 
-<Stack className="grid" id="videos-grid">
-  {displayedVideos.map((video) => {
-    const videoId = getYouTubeVideoId(video.lien);
-    return (
-      <article class="video-card">
-        <div class="video-thumbnail">
-          {videoId ? (
-            <iframe
-              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
-              title={video.Title}
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          ) : (
-            <div class="video-placeholder">
-              <p>Vidéo non disponible</p>
-            </div>
-          )}
-        </div>
-        <div class="video-content">
-          <h3 class="video-title">{video.Title}</h3>
-          {video.Description && (
-            <p class="video-description">{video.Description}</p>
-          )}
-          {video.lien && videoId && (
-            <a 
-              href={video.lien} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="video-link"
-            >
-              Voir sur YouTube →
-            </a>
-          )}
-        </div>
-      </article>
-    );
-  })}
+<Stack className="grid" id="articles-grid">
+  {
+    displayedArticles.map((article) => (
+      <BlogCard
+        name={article.title}
+        image={article.cover ? getImagesApi(article.cover) : ""}
+        tags={getArticleTags(article)}
+        date={formatDate(article.date)}
+        href={`/articles/${article.slug}`}
+      />
+    ))
+  }
 </Stack>
 
 <style>
@@ -90,105 +78,11 @@ function getYouTubeVideoId(url: string): string | null {
     width: 100%;
   }
 
-  .video-card {
-    background: var(--color-surface, #fff);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .video-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  }
-
-  .video-thumbnail {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    position: relative;
-    background: #000;
-  }
-
-  .video-thumbnail iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .video-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-surface-variant, #f5f5f5);
-    color: var(--color-text-secondary, #666);
-  }
-
-  .video-content {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .video-title {
-    font-family: var(--font-titre);
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 1.3;
-    color: var(--color-primary);
-    margin: 0;
-  }
-
-  .video-description {
-    font-family: var(--font-text);
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--color-text);
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .video-link {
-    font-family: var(--font-text);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-primary);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    transition: gap 0.2s ease;
-    margin-top: 8px;
-  }
-
-  .video-link:hover {
-    gap: 8px;
-  }
-
-  /* Tablette - 2 colonnes */
+  /* Tablette - 1 colonne pour écrans moyens */
   @media (max-width: 1024px) {
     .grid {
       gap: 40px;
       grid-template-columns: repeat(2, minmax(1px, 1fr));
-    }
-
-    .video-content {
-      padding: 20px;
-    }
-
-    .video-title {
-      font-size: 18px;
     }
   }
 
@@ -205,27 +99,6 @@ function getYouTubeVideoId(url: string): string | null {
     .grid {
       gap: 24px;
       grid-template-columns: 1fr;
-    }
-
-    .video-card {
-      border-radius: 16px;
-    }
-
-    .video-content {
-      padding: 16px;
-      gap: 10px;
-    }
-
-    .video-title {
-      font-size: 16px;
-    }
-
-    .video-description {
-      font-size: 13px;
-    }
-
-    .video-link {
-      font-size: 13px;
     }
   }
 </style>
