@@ -10,22 +10,22 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.6.3",
+    "@astrojs/netlify": "^6.6.4",
     "@astrojs/react": "^4.4.2",
     "@pandacss/studio": "^1.8.1",
-    "@types/react": "^19.2.7",
+    "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.16.6",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "astro": "^5.17.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "strapi-plugin-populate-deep": "^3.0.1",
-    "strapi-v5-plugin-populate-deep": "^4.0.5",
-    "zod": "^4.3.5"
+    "strapi-v5-plugin-populate-deep": "^4.0.6",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.2",
+    "@biomejs/biome": "2.3.14",
     "@pandacss/dev": "^1.8.1",
-    "prettier": "3.8.0",
+    "prettier": "3.8.1",
     "prettier-plugin-astro": "0.14.1"
   }
 }
