@@ -16,9 +16,7 @@ export interface SharedDog extends Struct.ComponentSchema {
   info: {
     displayName: 'Dog';
   };
-  attributes: {
-    chien: Schema.Attribute.Relation<'oneToOne', 'api::chien.chien'>;
-  };
+  attributes: {};
 }
 
 export interface SharedIntroduction extends Struct.ComponentSchema {
