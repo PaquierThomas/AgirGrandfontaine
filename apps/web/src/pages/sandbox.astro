@@ -7,15 +7,15 @@ import Layout from "src/layouts/Layout.astro";
 import HomepageBlogSnippet from "src/components/homepage/homepage-blog-snippet.astro";
 import HomepageNews from "src/components/homepage/Homepage-News.astro";
 
-const vedettes = await fetchApi<Dog[]>({
-  endpoint: "tests",
-  wrappedByKey: "data",
-  query: {
-    populate: "all",
-  },
-});
+// const vedettes = await fetchApi<Dog[]>({
+//   endpoint: "tests",
+//   wrappedByKey: "data",
+//   query: {
+//     populate: "all",
+//   },
+// });
 
-console.log("Vedettes data:", JSON.stringify(vedettes, null, 2));
+// console.log("Vedettes data:", JSON.stringify(vedettes, null, 2));
 ---
 
 <!-- <pre>{JSON.stringify(vedettes, null, 2)}</pre> -->

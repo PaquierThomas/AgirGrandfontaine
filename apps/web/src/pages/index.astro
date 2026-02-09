@@ -9,13 +9,13 @@ import HomepageBlogSnippet from "src/components/homepage/homepage-blog-snippet.a
 import HomepageNews from "src/components/homepage/Homepage-News.astro";
 import HomepageAbout from "src/components/homepage/homepage-about.astro";
 
-const vedettes = await fetchApi<Dog[]>({
-  endpoint: "dogs",
-  wrappedByKey: "data",
-  query: {
-    populate: "all",
-  },
-});
+// const vedettes = await fetchApi<Dog[]>({
+//   endpoint: "dogs",
+//   wrappedByKey: "data",
+//   query: {
+//     populate: "all",
+//   },
+// });
 ---
 <Layout title="Page d'accueil">
   <HomepageHero />
