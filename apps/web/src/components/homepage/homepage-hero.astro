@@ -3,43 +3,31 @@ import { HStack, VStack } from "@styled-system/jsx";
 import Button from "src/components/shared/button.astro";
 import fetchApi from "../../lib/strapi";
 
-// Récupérer toutes les vidéos
 const videos = await fetchApi({
   endpoint: "videos",
   wrappedByKey: "data",
 });
 
-// Trier par date de création (la plus récente en premier) côté client
 const sortedVideos = videos.sort((a, b) => {
   return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
 });
 
-// Récupérer la vidéo la plus récente
 const latestVideo = sortedVideos[0];
 
-// Debug: afficher dans la console
 console.log("Vidéo la plus récente:", {
   id: latestVideo?.id,
   title: latestVideo?.Title,
   createdAt: latestVideo?.createdAt
 });
 
-// Fonction pour extraire l'ID de la vidéo YouTube depuis différents formats d'URL
 function getYouTubeVideoId(url: string): string | null {
   if (!url) return null;
-  
-  // Format: https://www.youtube.com/watch?v=VIDEO_ID
   const watchMatch = url.match(/[?&]v=([^&]+)/);
   if (watchMatch) return watchMatch[1];
-  
-  // Format: https://youtu.be/VIDEO_ID
   const shortMatch = url.match(/youtu\.be\/([^?]+)/);
   if (shortMatch) return shortMatch[1];
-  
-  // Format: https://www.youtube.com/embed/VIDEO_ID
   const embedMatch = url.match(/embed\/([^?]+)/);
   if (embedMatch) return embedMatch[1];
-  
   return null;
 }
 
@@ -48,23 +36,26 @@ const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
 
 <section class="discover-section">
   <div class="content-wrapper">
-    <VStack className="left-content">
-      <h1 class="title">{latestVideo?.Title || "Nos Vidéos"}</h1>
-      <p class="description">
-        {latestVideo?.Description || "Découvrez nos dernières vidéos"}
-      </p>
-      <HStack className="button-group">
-        {videoId && (
-          <Button 
-            variant="filled" 
-            target="_blank" 
-            href={latestVideo.lien}
-          > 
-            Voir sur YouTube 
-          </Button>
-        )}
-      </HStack>
-    </VStack>
+    <div class="left-content">
+      <h2>Notre nouvelle sortie</h2>
+      <div class="left-main">
+        <h1 class="title">{latestVideo?.Title || "Nos Vidéos"}</h1>
+        <p class="description">
+          {latestVideo?.Description || "Découvrez nos dernières vidéos"}
+        </p>
+        <HStack className="button-group">
+          {videoId && (
+            <Button
+              variant="filled"
+              target="_blank"
+              href={latestVideo.lien}
+            >
+              Voir sur YouTube
+            </Button>
+          )}
+        </HStack>
+      </div>
+    </div>
     <div class="right-content">
       {videoId ? (
         <div class="video-container">
@@ -87,8 +78,8 @@ const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
 
 <style>
   .discover-section {
-    min-height: 85vh;
-    padding: 100px 20px;
+    min-height: 82vh;
+    padding: 60px 80px;
     width: 100vw;
     position: relative;
     left: 50%;
@@ -96,19 +87,41 @@ const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
     margin-left: -50vw;
     margin-right: -50vw;
     background-color: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .content-wrapper {
     display: flex;
-    gap: 120px;
     align-items: center;
-    min-height: calc(90vh - 200px);
     max-width: 1400px;
-    margin: 0 auto;
+    width: 100%;
+    gap: 80px;
   }
 
   .left-content {
     flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-self: stretch;
+
+    h2 {
+      font-family: var(--font-text);
+      font-size: var(--size-citation-intro);
+      font-weight: 700;
+      color: var(--color-primary);
+      text-decoration: underline;
+      padding: 15px 0;
+    }
+  }
+
+  .left-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     gap: 32px;
     align-items: flex-start;
   }
@@ -142,7 +155,6 @@ const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
     flex-wrap: wrap;
   }
 
-  /* Video Container - Prend toute la hauteur */
   .video-container {
     width: 100%;
     height: 100%;
@@ -177,7 +189,7 @@ const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
   /* Tablet - 1024px */
   @media (max-width: 1024px) {
     .discover-section {
-      padding: 120px 20px 60px;
+      padding: 80px 40px;
     }
 
     .content-wrapper {
@@ -209,22 +221,29 @@ const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
   /* Tablet Small - 768px */
   @media (max-width: 768px) {
     .discover-section {
-      padding: 100px 16px 50px;
+      padding: 60px 24px;
       min-height: auto;
     }
 
     .content-wrapper {
       flex-direction: column;
       gap: 40px;
-      min-height: auto;
     }
 
     .left-content {
       flex: 1;
-      gap: 24px;
-      text-align: center;
-      align-items: center;
       width: 100%;
+      align-self: auto;
+
+      h2 {
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    .left-main {
+      align-items: center;
+      text-align: center;
     }
 
     .right-content {
@@ -256,7 +275,7 @@ const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
   /* Mobile - 480px */
   @media (max-width: 480px) {
     .discover-section {
-      padding: 80px 12px 40px;
+      padding: 50px 16px;
     }
 
     .content-wrapper {
@@ -264,9 +283,15 @@ const videoId = latestVideo ? getYouTubeVideoId(latestVideo.lien) : null;
     }
 
     .left-content {
-      gap: 20px;
-      text-align: left;
+      h2 {
+        text-align: left;
+      }
+    }
+
+    .left-main {
       align-items: flex-start;
+      text-align: left;
+      gap: 20px;
     }
 
     .title {
