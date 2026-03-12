@@ -16,9 +16,9 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.38.0",
-    "@strapi/plugin-users-permissions": "5.38.0",
-    "@strapi/strapi": "5.38.0",
+    "@strapi/plugin-cloud": "5.39.0",
+    "@strapi/plugin-users-permissions": "5.39.0",
+    "@strapi/strapi": "5.39.0",
     "better-sqlite3": "12.6.2",
     "fs-extra": "^11.3.3",
     "mime-types": "^3.0.2",
@@ -26,7 +26,7 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "strapi-plugin-multi-select": "^2.1.1",
-    "strapi-plugin-populate-all": "^1.4.0",
+    "strapi-plugin-populate-all": "^1.4.1",
     "styled-components": "^6.3.9"
   },
   "devDependencies": {
